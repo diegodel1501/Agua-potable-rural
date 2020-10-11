@@ -17,6 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/adminlte', function () {
-    return view('adminlte');
+    return view('starter');
+});
+Route::get('/admin', function () {
+    return view('adminPruebasConcepto/admin');
+});
+Route::get('/contenido', function () {
+    return view('adminPruebasConcepto/content');
 });
 
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
