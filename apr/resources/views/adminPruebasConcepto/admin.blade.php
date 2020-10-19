@@ -20,29 +20,54 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
- <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
-  </nav>
+  <div class="wrapper">
+    <div class="row">
+      <div class="col">
+       <nav class="main-header navbar navbar-expand navbar-white navbar-light ">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav ">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="col">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light ">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav ">
+          <li class="nav-item">
+            <a class="nav-link"  role="button"><i class="fas fa-user"></i> Usuario</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="col">
+     <nav class="main-header navbar navbar-expand navbar-white navbar-light d-flex justify-content-end">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav ">
+       <li class="nav-item ">
+         <a class="nav-link" href="#" role="button"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
+       </li>
+     </ul>
+   </nav>
+ </div>
+</div>
+
+
+
+
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <span class="brand-text font-weight-light">APR</span>
-    </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+<!--         <div class="image">
           <img src="" class="img-circle elevation-2" alt="User Image">
-        </div>
+        </div> -->
         <div class="info">
-          <a href="#" class="d-block">nombre de usuario</a>
+          <a href="#" class="d-block">Administracion APR</a>
         </div>
       </div>
 
@@ -53,9 +78,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon  fas fa-laptop"></i>
               <p>
-                grupo de menu
+                Administracion
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -63,14 +88,86 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="#" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>sub menu activo o principal</p>
+                  <p>Socios</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>sub menu inactivo o secundario</p>
+                  <p>Cuentas</p>
                 </a>
+              </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Precios</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Reportes
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Socios</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cuentas</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Consumo</p>
+                </a>
+
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Deudas</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Facturacion
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ingresar factura</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ingresar pago</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ver estado de cuenta</p>
+                </a>
+
               </li>
             </ul>
           </li>
@@ -88,12 +185,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">titulo de la seccion</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">navegacion util</a></li>
-              <li class="breadcrumb-item active">seccion en la que estoy</li>
+              <li class="breadcrumb-item"><a href="#">Administracion</a></li>
+              <li class="breadcrumb-item active">Socios</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -104,9 +198,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <div class="row">
+      
         @yield('contenido')
-        </div>
+      
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
