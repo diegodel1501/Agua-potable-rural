@@ -37,7 +37,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Left navbar links -->
         <ul class="navbar-nav ">
           <li class="nav-item">
-            <a class="nav-link"  role="button"><i class="fas fa-user"></i> Usuario</a>
+            <a class="nav-link"  role="button"><i class="fas fa-user"></i> @if(auth()->user()!=null)
+              {{auth()->user()->name}}
+              @endif
+            </a>
           </li>
         </ul>
       </nav>
@@ -47,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Left navbar links -->
       <ul class="navbar-nav ">
        <li class="nav-item ">
-         <a class="nav-link" href="#" role="button"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
+         <a class="nav-link" href="{{Auth::logout()}}" role="button"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
        </li>
      </ul>
    </nav>
