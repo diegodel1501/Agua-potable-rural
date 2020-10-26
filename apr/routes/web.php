@@ -14,7 +14,7 @@ use App\Http\Controllers\ValorM3Controller;
 |
 */
 Route::get('/', function () {
-    return view('layouts/admin');
+      return Redirect::to("/valorm3");
 });
 
 
