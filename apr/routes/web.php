@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ValorM3Controller;
 use App\Http\Controllers\SubsidioController;
+use App\Http\Controllers\ViviendaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,8 +33,13 @@ Route::post('/subsidio', [SubsidioController::class,'store'])->name('subsidio.st
 Route::delete('/subsidio/{id}', [SubsidioController::class,'destroy'])->name('subsidio.destroy');
 Route::get('/subsidio/{id}/edit', [SubsidioController::class,'edit'])->name('subsidio.edit');
 Route::put('/subsidio/{id}', [SubsidioController::class,'update'])->name('subsidio.update');
-
-
+// rutas de vivienda
+Route::get('/vivienda', [ViviendaController::class,'index'])->name('vivienda.index');
+Route::get('/vivienda/create', [ViviendaController::class,'create'])->name('vivienda.create');
+Route::post('/vivienda', [ViviendaController::class,'store'])->name('vivienda.store');
+Route::delete('/vivienda/{id}', [ViviendaController::class,'destroy'])->name('vivienda.destroy');
+Route::get('/vivienda/{id}/edit', [ViviendaController::class,'edit'])->name('vivienda.edit');
+Route::put('/vivienda/{id}', [ViviendaController::class,'update'])->name('vivienda.update');
 
 
 
