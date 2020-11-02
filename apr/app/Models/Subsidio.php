@@ -16,6 +16,7 @@ class Subsidio extends Model
     	'porcentajededescuento',
     	'tipodesubsidio',
     	'estado',
-    	'descripcion'
+    	'descripcion',
+        'estado'
     ]; // campos asignables al modelo, para mas campos usar $guarded=[];
 }

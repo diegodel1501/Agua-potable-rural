@@ -4,16 +4,16 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class subsidioFormRequest extends FormRequest
+class pagoFormRequest extends FormRequest
 {
-      /**
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,10 +24,7 @@ class subsidioFormRequest extends FormRequest
     public function rules()
     {
         return [
-        'porcentajededescuento'=>'numeric|required|max:100',
-        'descripcion'=>'max:150',
-        'tipodesubsidio'=>'max:45'
+            //
         ];
-
     }
 }

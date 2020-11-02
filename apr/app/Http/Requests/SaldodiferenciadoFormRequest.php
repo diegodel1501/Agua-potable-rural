@@ -4,9 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class subsidioFormRequest extends FormRequest
+class SaldodiferenciadoFormRequest extends FormRequest
 {
-      /**
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -24,10 +24,9 @@ class subsidioFormRequest extends FormRequest
     public function rules()
     {
         return [
-        'porcentajededescuento'=>'numeric|required|max:100',
-        'descripcion'=>'max:150',
-        'tipodesubsidio'=>'max:45'
+        'idvivienda'=>'numeric|required',
+        'monto'=>"numeric|required",
+        'tipo'=>'required|string',
         ];
-
     }
 }

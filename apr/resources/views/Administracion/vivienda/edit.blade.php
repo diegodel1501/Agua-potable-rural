@@ -37,7 +37,11 @@
 									<select name="idsubsidio" class="form-control selectpicker " data-live-search="true">
 										<option value="" > seleccione </option>
 										@foreach ($subsidios as $s)
+										@if($s->idsubsidio == $vivienda->idsubsidio)
+										<option value="{{$s->idsubsidio}}" selected> {{$s->tipodesubsidio}} </option>
+										@else
 										<option value="{{$s->idsubsidio}}"> {{$s->tipodesubsidio}} </option>
+										@endif
 										@endforeach
 									</select>
 								</div>

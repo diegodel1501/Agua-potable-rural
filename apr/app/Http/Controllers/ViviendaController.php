@@ -40,12 +40,23 @@ class ViviendaController extends Controller
     }// para crear un objeto del modelo
 
     public function store(viviendaFormRequest $request){
-        $vivienda = new Vivienda;
-        $vivienda->idsubsidio=$request->get('idsubsidio');
-        $vivienda->direccion=$request->get('direccion');
-        $vivienda->numeromedidor=$request->get('numeromedidor');
-        $vivienda->estado='activo';
-        $vivienda->save();// recordar manejar save
+       
+        //validar numero de medidor
+        $aux=vivienda::all()
+        ->where('numeromedidor','=',$request->get('numeromedidor'))
+        ->groupBy('numeromedidor')
+        ->count();
+        if($aux > 0){ 
+            return "esta es la vista de error parcial";
+        }else{
+             $vivienda = new Vivienda;
+             $vivienda->idsubsidio=$request->get('idsubsidio');
+             $vivienda->direccion=$request->get('direccion');
+             $vivienda->numeromedidor=$request->get('numeromedidor');
+             $vivienda->estado='activo';
+             $vivienda->save();// recordar manejar save
+        }
+     
         return Redirect::to("/vivienda");
     }//para guardar un objeto en la bd
    
@@ -62,10 +73,13 @@ class ViviendaController extends Controller
         $vivienda =vivienda::findOrFail($id);
         $vivienda->idsubsidio=$request->get('idsubsidio');
         $vivienda->direccion=$request->get('direccion');
-        //revisar que el numero de medidor sea unico y no repetido
-        if(DB::table('vivienda')->where('numeromedidor','LIKE',$request->get('numeromedidor'))->get()){
-        	//error
-        	// return errores
+        //validar numero de medidor
+        $aux=vivienda::all()
+        ->where('numeromedidor','=',$request->get('numeromedidor'))
+        ->groupBy('numeromedidor')
+        ->count();
+        if($aux > 1){
+            return "esta es la vista de error parcial";
         }else{
        		 $vivienda->numeromedidor=$request->get('numeromedidor');
        		 $vivienda->update();// recordar manejar save

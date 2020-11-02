@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ValorM3Controller;
 use App\Http\Controllers\SubsidioController;
 use App\Http\Controllers\ViviendaController;
+use App\Http\Controllers\RepresentanteController;
+use App\Http\Controllers\SaldodiferenciadoController;
+use App\Http\Controllers\MedicionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,8 +44,27 @@ Route::post('/vivienda', [ViviendaController::class,'store'])->name('vivienda.st
 Route::delete('/vivienda/{id}', [ViviendaController::class,'destroy'])->name('vivienda.destroy');
 Route::get('/vivienda/{id}/edit', [ViviendaController::class,'edit'])->name('vivienda.edit');
 Route::put('/vivienda/{id}', [ViviendaController::class,'update'])->name('vivienda.update');
-
-
+// rutas de representante
+Route::get('/representante', [RepresentanteController::class,'index'])->name('representante.index');
+Route::get('/representante/create', [RepresentanteController::class,'create'])->name('representante.create');
+Route::post('/representante', [RepresentanteController::class,'store'])->name('representante.store');
+Route::delete('/representante/{id}', [RepresentanteController::class,'destroy'])->name('representante.destroy');
+Route::get('/representante/{id}/edit', [RepresentanteController::class,'edit'])->name('representante.edit');
+Route::put('/representante/{id}', [RepresentanteController::class,'update'])->name('representante.update');
+//rutas de saldo diferenciado
+Route::get('/saldodiferenciado', [SaldodiferenciadoController::class,'index'])->name('saldodiferenciado.index');
+Route::get('/saldodiferenciado/create', [SaldodiferenciadoController::class,'create'])->name('saldodiferenciado.create');
+Route::post('/saldodiferenciado', [SaldodiferenciadoController::class,'store'])->name('saldodiferenciado.store');
+Route::delete('/saldodiferenciado/{id}', [SaldodiferenciadoController::class,'destroy'])->name('saldodiferenciado.destroy');
+Route::get('/saldodiferenciado/{id}/edit', [SaldodiferenciadoController::class,'edit'])->name('saldodiferenciado.edit');
+Route::put('/saldodiferenciado/{id}', [SaldodiferenciadoController::class,'update'])->name('saldodiferenciado.update');
+// rutas de medicion
+Route::get('/medicion', [MedicionController::class,'index'])->name('medicion.index');
+Route::get('/medicion/create', [MedicionController::class,'create'])->name('medicion.create');
+Route::post('/medicion', [MedicionController::class,'store'])->name('medicion.store');
+Route::delete('/medicion/{id}', [MedicionController::class,'destroy'])->name('medicion.destroy');
+Route::get('/medicion/{id}/edit', [MedicionController::class,'edit'])->name('medicion.edit');
+Route::put('/medicion/{id}', [MedicionController::class,'update'])->name('medicion.update');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
