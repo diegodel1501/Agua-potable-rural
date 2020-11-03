@@ -44,7 +44,7 @@
 	
 		<div class="form-group">
 			<button class="btn btn-primary" class="form-control" type="submit">guardar</button>
-			<a href="{{url('subsidio')}}" class="btn btn-danger">cancelar</a>
+			<a href="{{url('vivienda')}}" class="btn btn-danger">cancelar</a>
 		</div>
 	
 </form>

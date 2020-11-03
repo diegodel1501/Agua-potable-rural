@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @extends('Administracion.subsidio.estatico')
 @section('ubicacion')
-    <li class="breadcrumb-item"><a href="#">Administracion</a></li>
-               <li class="breadcrumb-item"><a href="#">Medicion</a></li>
-              <li class="breadcrumb-item active">editar</li>
+    <li class="breadcrumb-item"><span>Administracion</span></li>
+               <li class="breadcrumb-item"><a href="{{url('medicion')}}">medicion</a></li>
+              <li class="breadcrumb-item active">nuevo</li>
 @endsection
 @section('contenido')
 <div class="row">

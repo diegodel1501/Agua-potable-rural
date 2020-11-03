@@ -19,7 +19,7 @@ use App\Http\Controllers\MedicionController;
 |
 */
 Route::get('/', function () {
-      return Redirect::to("/valorm3");
+      return Redirect::to("/login");
 });
 
 // valor por metro cubico

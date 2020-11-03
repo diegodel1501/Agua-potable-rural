@@ -78,7 +78,7 @@ class ViviendaController extends Controller
         ->where('numeromedidor','=',$request->get('numeromedidor'))
         ->groupBy('numeromedidor')
         ->count();
-        if($aux > 1){
+        if($aux > 0){
             return "esta es la vista de error parcial";
         }else{
        		 $vivienda->numeromedidor=$request->get('numeromedidor');
