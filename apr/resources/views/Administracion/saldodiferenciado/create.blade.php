@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@extends('Administracion.vivienda.estatico')
+@extends('layouts.estatico')
 @section('ubicacion')
     <li class="breadcrumb-item"><a href="#">Administracion</a></li>
-               <li class="breadcrumb-item"><a href="#">saldo diferenciado</a></li>
+               <li class="breadcrumb-item"><a href="{{url('saldodiferenciado')}}">saldo diferenciado</a></li>
               <li class="breadcrumb-item active">nuevo</li>
 @endsection
 @section('contenido')

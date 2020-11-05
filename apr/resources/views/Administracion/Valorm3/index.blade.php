@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@extends('Administracion.Valorm3.estatico')
+@extends('layouts.estatico')
 @section('ubicacion')
 <li class="breadcrumb-item"><a href="#">Administracion</a></li>
 <li class="breadcrumb-item active">valor por metro cubico</li>

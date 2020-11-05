@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@extends('Administracion.vivienda.estatico')
+@extends('layouts.estatico')
 @section('ubicacion')
 <li class="breadcrumb-item"><a href="#">Administracion</a></li>
 <li class="breadcrumb-item active">saldo diferenciado</li>
@@ -7,7 +7,7 @@
 @section('contenido')
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Listado desaldos registrados</h3>
+		<h3>Listado de saldos registrados</h3>
 		@include('Administracion.saldodiferenciado.search')
 	</div>	
 </div>

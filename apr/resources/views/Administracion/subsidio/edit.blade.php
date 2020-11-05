@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@extends('Administracion.subsidio.estatico')
+@extends('layouts.estatico')
 @section('ubicacion')
     <li class="breadcrumb-item"><a href="#">Administracion</a></li>
-               <li class="breadcrumb-item"><a href="#">subsidio</a></li>
+               <li class="breadcrumb-item"><a href="{{url('subsidio')}}">subsidio</a></li>
               <li class="breadcrumb-item active">editar</li>
 @endsection
 @section('contenido')
