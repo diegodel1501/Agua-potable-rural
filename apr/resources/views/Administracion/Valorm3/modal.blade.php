@@ -12,10 +12,12 @@
      </button>
 
     </div>
-    <div class="modal-body">
+    <div class="modal-body text-center">
      <p>
-      Confirme si desea Eliminar <strong>{{ $v->nombre }}</strong>
+      ¿Desea Eliminar <strong>{{ $v->nombre }}</strong>?
      </p>
+     <i class="fas fa-exclamation-triangle fa-5x" style="color:orange"></i>
+
     </div>
     <div class="modal-footer">
      <button type="button" class="btn btn-default" data-dismiss="modal">

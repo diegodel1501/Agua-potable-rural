@@ -11,10 +11,12 @@
       <span aria-hidden="true">&times;</span>
      </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body text-center">
      <p>
-      Confirme si desea Eliminar <strong>{{ $s->tipodesubsidio }}</strong>
+      ¿Desea Eliminar <strong>{{ $s->tipodesubsidio }}</strong>?
      </p>
+     <i class="fas fa-exclamation-triangle fa-5x" style="color:orange"></i>
+
     </div>
     <div class="modal-footer">
      <button type="button" class="btn btn-default" data-dismiss="modal">

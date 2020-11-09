@@ -11,10 +11,12 @@
       <span aria-hidden="true">&times;</span>
      </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body text-center">
      <p>
-      Confirme si desea Eliminar a:<strong>{{ $r->nombre }}, {{$r->rut}}</strong>
+      ¿Desea Eliminar a:<strong>{{ $r->nombre }}</strong>, con Rut: <strong> {{$r->rut}}</strong> ?
      </p>
+     <i class="fas fa-exclamation-triangle fa-5x" style="color:orange"></i>
+
     </div>
     <div class="modal-footer">
      <button type="button" class="btn btn-default" data-dismiss="modal">
