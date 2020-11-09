@@ -2,12 +2,12 @@
 @extends('layouts.estatico')
 @section('ubicacion')
 <li class="breadcrumb-item"><a href="#">Administracion</a></li>
-<li class="breadcrumb-item active">valor por metro cubico</li>
+<li class="breadcrumb-item active">valor por metro cúbico</li>
 @endsection
 @section('contenido')
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Listado de valores por m3</h3>
+		<h3>Listado de valores por metro cúbico</h3>
 		@include('Administracion.Valorm3.search')
 	</div>	
 </div>

@@ -1,3 +1,4 @@
+<link href="css/estilos.css" rel="stylesheet">
 @section('sidebarporplantilla')
 <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -12,7 +13,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </span>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" #administration>
             	  <li class="nav-item">
                 <a href="{{url('valorm3')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>

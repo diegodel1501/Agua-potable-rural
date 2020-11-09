@@ -1,3 +1,4 @@
+<script src="{{asset('js/scripts.js')}}"></script>
 @extends('layouts.admin')
 @extends('layouts.estatico')
 @section('ubicacion')
