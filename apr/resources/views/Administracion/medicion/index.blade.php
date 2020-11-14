@@ -1,10 +1,4 @@
 @extends('layouts.admin')
-@extends('Administracion.vivienda.estatico')
-@section('ubicacion')
-    <li class="breadcrumb-item"><span>Administracion</span></li>
-               <li class="breadcrumb-item active"><a href="{{url('medicion')}}">medicion</a></li>
-@endsection
-
 @section('contenido')
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -46,8 +40,16 @@
  		</div>	
  	</div>
  </div>
- <div class="row">
- 	  {{$mediciones->render()}}
- </div>
-
  @endsection
+
+   @push('scripts')
+<script >
+$( document ).ready(function() {
+	//quitamo lo active anteriores y reponemos los neesarios
+	$(".nav-link").removeClass("active");
+	$(".administradorpositivoidentificador").addClass("active");
+//agregamos el active de la seccion
+  $("#menumedicion").addClass("active");
+});
+</script>
+@endpush

@@ -1,11 +1,7 @@
 @extends('layouts.admin')
-@extends('Administracion.vivienda.estatico')
-@section('ubicacion')
-<li class="breadcrumb-item"><a href="#">Administracion</a></li>
-<li class="breadcrumb-item active">Medicion</li>
-@endsection
 @section('contenido')
-<div class="row">
+<div class="container">
+	<div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<h3>Listado de mediciones</h3>
 		@include('Administracion.medicion.search')
@@ -24,29 +20,31 @@
 					<th>Opciones</th>
 				</thead>
 				<tbody>
-				@foreach($mediciones as $m)
- 					<tr>
- 						<td>{{$m->idmedicion}}</td>
- 						<td>{{$m->inscriptor}}</td>
- 						<td>{{$m->valordemedicion}}</td>
- 						<td>{{$m->fechadeingreso}}</td>
- 						<td>{{$m->direccion}}</td>
- 					<td>
- 						<a href="{{route('medicion.edit',$m->idmedicion)}}"><button class="btn btn-info">editar</button></a>
- 				
- 							<a href="" data-target="#modal-delete-{{$m->idmedicion}}" data-toggle="modal"><button class="btn btn-danger">eliminar</button></a>
- 							@include('administracion.medicion.modal')
- 						</td>
- 					</tr>
+					@foreach($mediciones as $m)
+					<tr>
+						<td>{{$m->idmedicion}}</td>
+						<td>{{$m->inscriptor}}</td>
+						<td>{{$m->valordemedicion}}</td>
+						<td>{{$m->fechadeingreso}}</td>
+						<td>{{$m->direccion}}</td>
+						<td>
+							<a href="{{route('medicion.edit',$m->idmedicion)}}"><button class="btn btn-info">editar</button></a>
+							
+							<a href="" data-target="#modal-delete-{{$m->idmedicion}}" data-toggle="modal"><button class="btn btn-danger">eliminar</button></a>
+							@include('administracion.medicion.modal')
+						</td>
+					</tr>
 
- 					@endforeach
+					@endforeach
 				</tbody>
- 			</table>
- 		</div>	
- 	</div>
- </div>
- <div class="row">
- 	  {{$mediciones->render()}}
- </div>
+			</table>
+		</div>	
+	</div>
+</div>
+<div class="row">
+	{{$mediciones->render()}}
+</div>
+</div>
 
- @endsection
+
+@endsection

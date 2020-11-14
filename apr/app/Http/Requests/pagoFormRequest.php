@@ -13,7 +13,7 @@ class pagoFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class pagoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'idfactura'=>'required|numeric',
+            'valorpagado'=>'required|numeric',
         ];
     }
 }

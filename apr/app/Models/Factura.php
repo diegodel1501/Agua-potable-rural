@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cupondepago extends Model
+class Factura extends Model
 {
     use HasFactory;
-      protected $table='cupondepago';
-   protected $primaryKey='idcupondepago';
+      protected $table='factura';
+   protected $primaryKey='idfactura';
    public $timestamps=false;
 
     protected $fillable=[
     	'idvivienda',
-    	'idvalor',
-    	'fecha',
+    	'estadodepago',
+    	'totalcobrado',
+    	'estado'
     ]; 
 }

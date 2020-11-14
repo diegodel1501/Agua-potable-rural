@@ -1,9 +1,4 @@
 @extends('layouts.admin')
-@extends('layouts.estatico')
-@section('ubicacion')
-<li class="breadcrumb-item"><a href="#">Administracion</a></li>
-<li class="breadcrumb-item active">reoresentante</li>
-@endsection
 @section('contenido')
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -47,8 +42,16 @@
  		</div>	
  	</div>
  </div>
- <div class="row">
- 	  {{$representantes->render()}}
- </div>
 
  @endsection
+    @push('scripts')
+<script >
+$( document ).ready(function() {
+	//quitamo lo active anteriores y reponemos los neesarios
+	$(".nav-link").removeClass("active");
+	$(".administradorpositivoidentificador").addClass("active");
+//agregamos el active de la seccion
+  $("#menurepresentante").addClass("active");
+});
+</script>
+@endpush

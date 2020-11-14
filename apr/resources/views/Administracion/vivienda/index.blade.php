@@ -1,10 +1,5 @@
-<script src="{{asset('js/scripts.js')}}"></script>
+
 @extends('layouts.admin')
-@extends('layouts.estatico')
-@section('ubicacion')
-<li class="breadcrumb-item"><a href="#">Administracion</a></li>
-<li class="breadcrumb-item active">vivienda</li>
-@endsection
 @section('contenido')
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -44,8 +39,17 @@
  		</div>	
  	</div>
  </div>
- <div class="row">
- 	  {{$viviendas->render()}}
- </div>
 
  @endsection
+    @push('scripts')
+    <script src="{{asset('js/scripts.js')}}"></script>
+<script >
+$( document ).ready(function() {
+	//quitamo lo active anteriores y reponemos los neesarios
+	$(".nav-link").removeClass("active");
+	$(".administradorpositivoidentificador").addClass("active");
+//agregamos el active de la seccion
+  $("#menuvivienda").addClass("active");
+});
+</script>
+@endpush

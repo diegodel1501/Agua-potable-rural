@@ -1,10 +1,4 @@
 @extends('layouts.admin')
-@extends('layouts.estatico')
-@section('ubicacion')
-    <li class="breadcrumb-item"><a href="#">Administracion</a></li>
-               <li class="breadcrumb-item"><a href="{{url('valorm3')}}">valor por metro cubico</a></li>
-              <li class="breadcrumb-item active">nuevo</li>
-@endsection
 @section('contenido')
 <div class="row">
 	<div class="col col-lg-6 col-md-6  col-xs-6">
@@ -44,6 +38,19 @@
 		</div>
 	
 </form>
+@endsection
+@section('ubicacion')
+ <div class="row mb-2">
+                <div class="col-sm-3">
+                  <h1 class="m-0 text-dark">Accediste a: </h1>
+                </div><!-- /.col -->
+                <div class="col-sm-9">
+                 <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="{{url('valorm3')}}">Valor por metro cubico</a></li>
+                  <li class="breadcrumb-item active">Crear nuevo</li>
+                </ol>
+              </div><!-- /.col -->
+               </div>
 @endsection
 
 
