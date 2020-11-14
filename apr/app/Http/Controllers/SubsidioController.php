@@ -22,7 +22,7 @@ class SubsidioController extends Controller
          
         if($request){
             $query=trim($request->get('searchText'));
-            $subsidios=  DB::table('subsidio')->where('descripcion','LIKE','%'.$query.'%')->where('estado','=','activo')->orderBy('idsubsidio','desc')->paginate(3);
+            $subsidios=  DB::table('subsidio')->where('descripcion','LIKE','%'.$query.'%')->where('estado','=','activo')->orderBy('idsubsidio','desc')->get();
           
             return view('Administracion.subsidio.index',["subsidios"=>$subsidios,"searchText"=>$query]);
             }

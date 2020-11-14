@@ -38,7 +38,7 @@ class MedicionController extends Controller
             ->orwhere('m.fechadeingreso','LIKE','%'.$query.'%')
             ->where('m.estado','=','activo')
             ->orderBy('m.idmedicion','desc')
-            ->paginate(3);
+            ->get();
           
             return view('Administracion.medicion.index',["mediciones"=>$mediciones,"searchText"=>$query]);
             }

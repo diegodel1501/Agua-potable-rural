@@ -20,7 +20,7 @@ class ValorM3Controller extends Controller
          
         if($request){
             $query=trim($request->get('searchText'));
-            $valores=  DB::table('valorm3')->where('nombre','LIKE','%'.$query.'%')->where('estado','=','activo')->orderBy('idValorM3','desc')->paginate(3);
+            $valores=  DB::table('valorm3')->where('nombre','LIKE','%'.$query.'%')->where('estado','=','activo')->orderBy('idValorM3','desc')->get();
           
             return view('Administracion.valorm3.index',["valores"=>$valores,"searchText"=>$query]);
             }

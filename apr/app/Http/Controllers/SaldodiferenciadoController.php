@@ -32,7 +32,7 @@ class SaldodiferenciadoController extends Controller
             ->orwhere('v.direccion','LIKE','%'.$query.'%')
             ->where('s.estado','=','activo')
             ->orderBy('s.idsaldodiferenciado','desc')
-            ->paginate(3);
+            ->get();
           
             return view('Administracion.saldodiferenciado.index',["saldodiferenciados"=>$saldodiferenciados,"searchText"=>$query]);
             }

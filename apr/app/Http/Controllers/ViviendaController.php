@@ -30,7 +30,7 @@ class ViviendaController extends Controller
             ->where('vivienda.direccion','LIKE','%'.$query.'%')
             ->where('vivienda.estado','=','activo')
             ->orderBy('idvivienda','desc')
-            ->paginate(3);
+            ->get();
           
             return view('Administracion.vivienda.index',["viviendas"=>$viviendas,"searchText"=>$query]);
             }

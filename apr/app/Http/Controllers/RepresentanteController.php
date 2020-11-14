@@ -34,7 +34,7 @@ class RepresentanteController extends Controller
             ->orwhere('v.direccion','LIKE','%'.$query.'%')
             ->where('r.estado','=','activo')
             ->orderBy('r.idvivienda','desc')
-            ->paginate(3);
+            ->get();
           
             return view('Administracion.representante.index',["representantes"=>$representantes,"searchText"=>$query]);
             }
