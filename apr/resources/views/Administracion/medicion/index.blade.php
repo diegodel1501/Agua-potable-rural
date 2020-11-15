@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 @section('contenido')
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -44,7 +44,7 @@
 @push('estilos')
   <link rel="stylesheet" href="{{url('adminlte/plugins/datatables/jquery.datatables.min.css')}}">
 @endpush
-   @push('scripts')
+@push('scripts')
  <script src="{{url('adminlte/plugins/datatables/jquery.datatables.min.js')}}"></script>
 <script >
 $( document ).ready(function() {

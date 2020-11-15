@@ -18,12 +18,16 @@ use App\Http\Controllers\MedicionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
-      return Redirect::to("/dashboard");
+    return view('layouts.app');
 });
 
-// valor por metro cubico
-//Route::resource('/valorm3', Valorm3Controller::class);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
 Route::get('/valorm3', [Valorm3Controller::class,'index'])->name('valor.index');
 Route::get('/valorm3/create', [Valorm3Controller::class,'create'])->name('valor.create');
 Route::post('/valorm3', [Valorm3Controller::class,'store'])->name('valor.store');
@@ -65,7 +69,3 @@ Route::post('/medicion', [MedicionController::class,'store'])->name('medicion.st
 Route::delete('/medicion/{id}', [MedicionController::class,'destroy'])->name('medicion.destroy');
 Route::get('/medicion/{id}/edit', [MedicionController::class,'edit'])->name('medicion.edit');
 Route::put('/medicion/{id}', [MedicionController::class,'update'])->name('medicion.update');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
