@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2020 a las 06:23:04
+-- Tiempo de generación: 15-11-2020 a las 06:38:34
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -284,7 +284,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`, `Rol`) VALUES
-(2, 'diego', 'duegix@gmail.com', NULL, '$2y$10$NxgNouxGGrQfX6NEkw/6Ne4JmWxlGqLOqUoeBfkkuFvonGdy1lkz6', NULL, NULL, '0IptGGhxgLvr6YLxOcU1r0Upi7tsKA38zzgb1zgj1DytywHppKuNh9vFTme1', NULL, NULL, '2020-10-19 13:05:17', '2020-10-19 13:05:17', 'administrador general');
+(2, 'diego', 'duegix@gmail.com', NULL, '$2y$10$NxgNouxGGrQfX6NEkw/6Ne4JmWxlGqLOqUoeBfkkuFvonGdy1lkz6', NULL, NULL, 'VLrUJn3ZxcjGfwou1K1kigYeRN3TRKL1gjAEjEHm7oDVL7hQ53HJOgZp2Gb3', NULL, NULL, '2020-10-19 13:05:17', '2020-10-19 13:05:17', 'administrador general');
 
 -- --------------------------------------------------------
 
