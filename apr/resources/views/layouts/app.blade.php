@@ -136,13 +136,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link ">
+                    <a href="{{url('cupondepago')}}" class="nav-link ">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Generar cupon de pago</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{url('facturacion')}}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ingresar pago</p>
                     </a>
