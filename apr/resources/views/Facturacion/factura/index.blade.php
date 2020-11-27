@@ -8,8 +8,8 @@
         </div>
     
         <div class="card-body">
-            <table class="table table-striped">
-                <thead class="thead-dark">
+            <table class="table table-striped table-condensed">
+                <thead>
 
                     <tr>
                         <th scope="col">#</th>

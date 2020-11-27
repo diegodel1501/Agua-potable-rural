@@ -1,19 +1,21 @@
 @extends('layouts.app')
 @section('contenido')
 <div class="row">
-	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-2">
 		<h3>Listado de valores por metro cúbico</h3>
 		@include('Administracion.Valorm3.search')
 	</div>	
 </div>
-<div class="row">
+<div class="row mt-2">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-condensed table-hover" id="tablavalor">
+			<table class="table table-striped table-condensed table-hover" id="tablavalor">
 				<thead>
 					<th>Id</th>
 					<th>Nombre</th>
-					<th>descripcion</th>
+					<th>descripción</th>
 					<th>estado</th>
 					<th>precio</th>
 					<th>Opciones</th>
@@ -27,9 +29,9 @@
  						<td>{{$v->estado}}</td>
  						<td>{{$v->precio}}</td>
  					<td>
- 						<a href="{{route('valor.edit',$v->idValorM3)}}"><button class="btn btn-info">editar</button></a>
+ 						<a href="{{route('valor.edit',$v->idValorM3)}}"><button class="boton1 btn btn-info ">editar</button></a>
  				
- 							<a href="" data-target="#modal-delete-{{$v->idValorM3}}" data-toggle="modal"><button class="btn btn-danger">eliminar</button></a>
+ 							<a href="" data-target="#modal-delete-{{$v->idValorM3}}" data-toggle="modal"><button class="boton1 btn btn-danger">eliminar</button></a>
  							@include('administracion.valorm3.modal')
  						</td>
  					</tr>

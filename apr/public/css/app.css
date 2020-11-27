@@ -10903,3 +10903,9 @@ a.text-dark:focus {
   }
 }
 
+.boton1{
+  width: 100px;
+  margin: 5px;
+  text-align: center;
+  display: inline;
+}

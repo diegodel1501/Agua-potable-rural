@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('contenido')
 <div class="row">
-	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-2 mb-4">
 		<h3>Listado de subsidios registrados</h3>
 		@include('Administracion.subsidio.search')
 	</div>	
@@ -9,11 +9,11 @@
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-condensed table-hover" id="tablasubsidio">
+			<table class="table table-striped table-condensed table-hover" id="tablasubsidio">
 				<thead>
 					<th>Id</th>
 					<th>tipo de subsidio</th>
-					<th>descripcion</th>
+					<th>descripción</th>
 					<th>porcentaje de descuento</th>
 					<th>Opciones</th>
 				</thead>

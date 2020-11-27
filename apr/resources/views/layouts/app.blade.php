@@ -228,16 +228,16 @@
     <body style="background-image:url('{{url('imagenes/APR-campoflux.png')}}'); margin-top: 50px">
    <div class="container" >
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Ingresar a: Sistema administracion APR <strong> Buli Oriente</strong> San carlos</div>
+        <div class="col-md-8 ">
+            <div class="card mt-5" id="login">
+                <div class="card-header"> <b> Ingresar a: Sistema administracion APR <strong> Buli Oriente</strong> San carlos </b></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">correo ELectronico</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">Correo Electrónico</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
