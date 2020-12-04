@@ -1,6 +1,6 @@
 
 <div class="row align-items-center mt-3 mb-3">
-	<div class="col col-md-10">
+	<div class="col">
 		<nav class="navbar navbar-light bg-light ">
   			<a class="navbar-brand">Buscar medicion</a>
 	 		 <form class="form-inline" action="{{route('medicion.index')}}" method="GET" autocomplete="off" role="search">

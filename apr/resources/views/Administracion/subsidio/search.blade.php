@@ -1,5 +1,5 @@
 
-<div class="row align-items-center">
+<div class="row align-items-center mt-3 mb-3">
 	<div class="col">
 		<nav class="navbar navbar-light bg-light ">
   			<a class="navbar-brand">Buscar subsidio</a>

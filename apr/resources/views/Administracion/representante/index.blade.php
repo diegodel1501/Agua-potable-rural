@@ -30,7 +30,7 @@
  						<td>{{$r->telefono}}</td>
  						<td>{{$r->direccion}}</td>
  					<td>
- 						<a href="{{route('representante.edit',$r->idrepresentante)}}"><button class="boton1 btn btn-info">editar</button></a>
+ 						<a href="{{route('representante.edit',$r->idrepresentante)}}"><button class="boton1 btn boton-info">editar</button></a>
  				
  							<a href="" data-target="#modal-delete-{{$r->idrepresentante}}" data-toggle="modal"><button class="boton1 btn btn-danger">eliminar</button></a>
  							@include('administracion.representante.modal')

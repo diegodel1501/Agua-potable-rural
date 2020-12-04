@@ -10909,3 +10909,12 @@ a.text-dark:focus {
   text-align: center;
   display: inline;
 }
+.boton-info{
+  background: #17a2b8;
+  color: white;
+  text-decoration-line: none;
+}
+.boton-info:hover{
+  color: white;
+  opacity: 0.9;
+}

@@ -29,7 +29,7 @@
  						<td>{{$v->estado}}</td>
  						<td>{{$v->precio}}</td>
  					<td>
- 						<a href="{{route('valor.edit',$v->idValorM3)}}"><button class="boton1 btn btn-info ">editar</button></a>
+ 						<a href="{{route('valor.edit',$v->idValorM3)}}"><button class="boton1 btn boton-info ">editar</button></a>
  				
  							<a href="" data-target="#modal-delete-{{$v->idValorM3}}" data-toggle="modal"><button class="boton1 btn btn-danger">eliminar</button></a>
  							@include('administracion.valorm3.modal')
