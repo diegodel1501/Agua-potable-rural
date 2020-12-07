@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\subsidio;
 use App\Http\Requests\subsidioFormRequest;
 use DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SubsidioController extends Controller
 {
@@ -38,6 +39,9 @@ class SubsidioController extends Controller
         $subsidio->tipodesubsidio=$request->get('tipodesubsidio');
         $subsidio->estado='activo';
         $subsidio->save();// recordar manejar save
+
+        Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
+
         return Redirect::to("/subsidio");
     }//para guardar un objeto en la bd
    
@@ -55,7 +59,9 @@ class SubsidioController extends Controller
         $subsidio->descripcion=$request->get('descripcion');
         $subsidio->porcentajededescuento=$request->get('porcentajededescuento');
         $subsidio->update();// recordar manejar save
-       
+      
+        Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+
       return Redirect::to("/subsidio");
 
     }// para actualizar
@@ -63,6 +69,9 @@ class SubsidioController extends Controller
                     $subsidio=subsidio::findOrFail($id);
                     $subsidio->estado='inactivo';
                     $subsidio->update();
+      
+      Alert::success('Los datos han sido eliminados');
+
  			return Redirect::to("/subsidio");
 
     }// para borrar

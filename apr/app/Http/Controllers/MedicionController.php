@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Medicion;
 use App\Http\Requests\MedicionFormRequest;
 use DB;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class MedicionController extends Controller
 {
      public function validar($fecha){
@@ -58,6 +60,8 @@ class MedicionController extends Controller
         
         $medicion->estado='activo';
         $medicion->save();// recordar manejar save
+        Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
+
         return Redirect::to("/medicion");
     }//para guardar un objeto en la bd
    
@@ -88,6 +92,8 @@ class MedicionController extends Controller
             ->where('m.estado','=','activo')
             ->first();
          $viviendas=DB::table('vivienda')->where('estado','=','activo')->get();
+         Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+
          return view("Administracion.Medicion.edit",["viviendas"=>$viviendas,"medicion"=>$Medicion])->withErrors("wrong");
         }
        
@@ -101,6 +107,9 @@ class MedicionController extends Controller
                     $Medicion=Medicion::findOrFail($id);
                     $Medicion->estado='inactivo';
                     $Medicion->update();
+
+                    Alert::success('Los datos han sido eliminados');
+
  			return Redirect::to("/medicion");
 
     }// para borrar

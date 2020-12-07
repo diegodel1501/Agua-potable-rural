@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Vivienda;
 use App\Http\Requests\viviendaFormRequest;
 use DB;
-use Symfony\Component\VarDumper\VarDumper;
+//use Symfony\Component\VarDumper\VarDumper;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ViviendaController extends Controller
 {
@@ -57,7 +58,8 @@ class ViviendaController extends Controller
              $vivienda->estado='activo';
              $vivienda->save();// recordar manejar save
         }
-     
+        Alert::success('Buen Trabajo','se han registrado los datos exitosamente');
+
         return Redirect::to("/vivienda");
     }//para guardar un objeto en la bd
    
@@ -88,7 +90,7 @@ class ViviendaController extends Controller
         //fin de revivision
        
   
-       
+        Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
       return Redirect::to("/vivienda");
 
     }// para actualizar
@@ -96,6 +98,9 @@ class ViviendaController extends Controller
                     $vivienda=vivienda::findOrFail($id);
                     $vivienda->estado='inactivo';
                     $vivienda->update();
+
+            Alert::success('Los datos han sido eliminados');
+
  			return Redirect::to("/vivienda");
 
     }// para borrar
