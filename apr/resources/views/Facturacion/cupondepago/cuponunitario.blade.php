@@ -9,7 +9,7 @@
       	<div class="card col-md-9 mx-auto">
 
       		<div class="card-body">
-      			  <form method="get" action="{{route('cupondepago.exportarparticular')}}">
+      			  <form method="get" id="formulario" action="{{route('cupondepago.exportarparticular')}}">
       			   <input type="hidden" name="nombre" value="{{$nombre}}">
                    <input type="hidden" name="direccion" value="{{$direccion}}">
             	     <input type="hidden" name="fecha" value="{{$fecha}}">
@@ -17,12 +17,13 @@
                    <input type="hidden" name="lecturaactual" value="{{$lecturaactual}}">
                    <input type="hidden" name="valorm3" value="{{$valorm3}}">
                    <input type="hidden" name="m3" value="{{$m3}}">
+                   <input type="hidden" name="vivienda" value="{{$vivienda}}">
                    <input type="hidden" name="multa" value="{{$multa}}">
                    <input type="hidden" name="totaldelmes" value="{{$totaldelmes}}">
                    <input type="hidden" name="totalfinal" value="{{$totalfinal}}">
                    <input type="hidden" name="subsidio" value="{{$subsidio.'%'}}">
-                    <a class="btn btn-danger" href="{{route('cupondepago.index')}}">Volver</a>
-      			         <button class="btn btn-success" type="submit">Exportar a pdf</a>
+                   <a class="btn btn-danger" href="{{route('cupondepago.index')}}">Volver</a>
+      			       <button class="btn btn-success"  id="alertarfacturacionparticular" type="button">Exportar a pdf</a>
 
       			</form>
 
@@ -110,7 +111,12 @@
 </div>
 
 @endsection
+ @push('estilos')
+    <link rel="stylesheet" href="{{url('adminlte/plugins/sweetalert2/sweetalert2.min.css')}}">
+    @endpush
     @push('scripts')
+    <script src="{{url('adminlte/plugins/sweetalert2/sweetalert2@10.js')}}"></script>
+
 <script >
 $( document ).ready(function() {
     //quitamo lo active anteriores y reponemos los neesarios
@@ -118,6 +124,24 @@ $( document ).ready(function() {
     $(".administradorpositivoidentificador").addClass("active");
 //agregamos el active de la seccion
   $("#menucupondepago").addClass("active");
+  $("#alertarfacturacionparticular").click(function(){
+    Swal.fire({
+  title: '¿estas seguro que deseas exportar? se generaran la deuda si lo haces',
+  showDenyButton: true,
+  showCancelButton: false,
+  confirmButtonText: `exportar`,
+  denyButtonText: `cancelar`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire('exportado!', 'cobros confirmado y deuda listas para pagar', 'success')
+    //submit
+    $("#formulario").submit();
+  } else if (result.isDenied) {
+    Swal.fire('cancelado', 'no se genero deuda', 'info')
+  }
+})
+  });
 });
 </script>
 @endpush

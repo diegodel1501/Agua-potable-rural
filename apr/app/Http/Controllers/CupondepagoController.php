@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Vivienda;
+use App\Models\Factura;
 use App\Http\Requests\viviendaFormRequest;
 use App\Http\Requests\CuponPFormRequest;
 use App\Http\Requests\CuponEFormRequest;
@@ -223,7 +224,7 @@ class CupondepagoController extends Controller
          ->where('idsubsidio','=',$idsubsidio)
          ->first()->porcentajededescuento;
          $totalfinal=(int)$totaldelmes-((int)$totaldelmes*(int)$descuento/100);
-         return view('Facturacion.cupondepago.cuponunitario',["fecha"=>$fechaddmmaaaa,"nombre"=>$nombre,"direccion"=>$direccion,"lecturaanterior"=>$lecturaanterior,"lecturaactual"=>$lecturaactual,"valorm3"=>$valorm3,"totaldelmes"=>$totaldelmes,"multa"=>$multa,"m3"=>$m3,"subsidio"=>$descuento,"totalfinal"=>$totalfinal]);
+         return view('Facturacion.cupondepago.cuponunitario',["fecha"=>$fechaddmmaaaa,"nombre"=>$nombre,"direccion"=>$direccion,"lecturaanterior"=>$lecturaanterior,"lecturaactual"=>$lecturaactual,"valorm3"=>$valorm3,"totaldelmes"=>$totaldelmes,"multa"=>$multa,"m3"=>$m3,"subsidio"=>$descuento,"totalfinal"=>$totalfinal,'vivienda'=>$request->get('vivienda') ]);
     }
     public function exportarparticular(CuponEformRequest $request){
     	$pdf=PDF::loadview('Facturacion.cupondepago.exportarunitario',[
@@ -236,10 +237,13 @@ class CupondepagoController extends Controller
     		"totaldelmes"=>$request->get('totaldelmes'),
     		"multa"=>$request->get('multa'),
         "m3"=>$request->get('m3'),
-         "mesanterior"=>'0',
+        "mesanterior"=>'0',
     		"subsidio"=>$request->get('subsidio'),
     		"totalfinal"=>$request->get('totalfinal')
     	]);
+      //generar factura
+      $this->generarfacturaparticular($request->get('totalfinal'),$request->get('vivienda'));
+
     	return $pdf->download('Cupondepago-'.$request->get('direccion').'.pdf');
     }
     public function exportartodos(){
@@ -313,7 +317,11 @@ class CupondepagoController extends Controller
                       $multa=0-(int)$saldo->monto;
                     }
                    }
-                
+                 $totalfinal=(((int)($lecturasactuales[$i]->valordemedicion)-(int)($lecturasanteriores[$i]->valordemedicion))
+                     *(int)($valorm3->first()->precio))-
+                     ((((int)($lecturasactuales[$i]->valordemedicion)-(int)($lecturasanteriores[$i]->valordemedicion))
+                     *(int)($valorm3->first()->precio))*((int)($listadeViviendas[$i]->porcentajededescuento)/100))+$multa;
+
                   $listaconinformacioncompleta[$i]=
                   array(
                     'nombre' =>$listadeViviendas[$i]->nombre, 
@@ -328,11 +336,11 @@ class CupondepagoController extends Controller
                      'm3'=>(int)($lecturasactuales[$i]->valordemedicion)-(int)($lecturasanteriores[$i]->valordemedicion),
                      'multa'=> $multa,
                      'mesanterior'=>'0',
-                     'totalfinal'=>(((int)($lecturasactuales[$i]->valordemedicion)-(int)($lecturasanteriores[$i]->valordemedicion))
-                     *(int)($valorm3->first()->precio))-
-                     ((((int)($lecturasactuales[$i]->valordemedicion)-(int)($lecturasanteriores[$i]->valordemedicion))
-                     *(int)($valorm3->first()->precio))*((int)($listadeViviendas[$i]->porcentajededescuento)/100))+$multa
+                     'totalfinal'=>$totalfinal
                     );
+
+                       //generar facturas
+                $this->generarfacturaparticular($totalfinal,$listadeViviendas[$i]->idvivienda);
                 }else{
                   return "error no tenemos datos de medicion de este mes en la vivienda:".$listadeViviendas[$i]->direccion.", por favor regularizar antes de generar cupones.";
                 }     
@@ -349,6 +357,21 @@ class CupondepagoController extends Controller
             "lista"=>$listaconinformacioncompleta,
             'final'=>$cuenta
            ]);
+      
         return $pdf->download('CuponesDePago.pdf');
+    }
+    public function generarfacturaparticular($monto,$idvivienda){
+            $factura= new Factura;
+            $factura->estado='activo';
+            $factura->totalcobrado=$monto;
+            $factura->idvivienda=$idvivienda;
+            $factura->estadodepago='inpago';
+            $factura->fecha=date('Y-m-d');
+            if($factura->save()){
+              return true;
+            }else{
+              return 'error en la creacion de una factura para la vivienda: '.$idvivienda;
+            }
+            
     }
 }
