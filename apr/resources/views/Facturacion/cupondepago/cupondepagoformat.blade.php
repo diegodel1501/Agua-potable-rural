@@ -1,17 +1,18 @@
 @extends('layouts.app')
 @section('contenido')
-<link href="{{ asset('css/cupondepago.css') }}" rel="stylesheet">
-<div class="row">
-    <div class="card col-md-9 mx-auto">
-        <div class="card-header">
-            <H1>Forma General de Cupones a generar</H1>
+<!-- poner un for para la lista de todos los cupones a generar -->
+  <link rel="stylesheet" href="{{url('adminlte/plugins/fontawesome-free/css/all.min.css')}}">
+      <!-- Theme style -->
+      <link rel="stylesheet" href="{{url('adminlte/dist/css/adminlte.min.css')}}">
+         <div class="row">
+        <div class="card col-md-9 mx-auto">
+            <div class="card-body">
+                <a class="btn btn-success"  id="alertarfacturacion"> Exportar a PDF</a>
+                <a class="btn btn-danger" href="{{route('cupondepago.index')}}">Volver</a>
+            </div>
         </div>
-        <div class="card-body">
-            <a href="{{route('cupondepago.generarcupones')}}" class="btn btn-success">generar listado de cupones</a>
-            <a href="{{route('cupondepago.generarcupon')}}" class="btn btn-warning">generar cupon de pago particular</a>
-        </div>
-    </div>
-</div>
+      </div>
+     @for ($i = 0; $i <$final ; $i++)
 <div class="row">
     <div class="card col-md-9 mx-auto">
         <div class="card-header">
@@ -31,7 +32,7 @@
           
                 <div class="">
                     <label class="form-label ml-4"for="name">Nombre:</label>
-                    <input type="text" name="name" id="name" class="form-comtrol col-9" disabled >
+                    <input type="text" name="name" id="name" class="form-comtrol col-9" disabled  value="{{$lista[$i]['nombre'].', '.$lista[$i]['direccion']}}">
             
 
                 </div>
@@ -43,42 +44,42 @@
                     <tr>
                         <td>
                             <label class="form-label" for="prev">Lectura Anterior</label>
-                            <input type="number" class="form-control"disabled>
+                            <input type="number" class="form-control"disabled value="{{$lista[$i]['lecturaanterior']}}">
                         </td>
                         <td>
                             <label class="form-label" for="today">Lectura Actual</label>
-                            <input type="number" name="today" disabled class="form-control">
+                            <input type="number" name="today" disabled class="form-control" value="{{$lista[$i]['lecturaactual']}}">
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label for="currentMonth" class="form-label">Total del Mes</label>
-                            <input type="number" disabled class="form-control" name="currentMonth">
+                            <input type="number" disabled class="form-control" name="currentMonth" value="{{$lista[$i]['totaldelmes']}}">
                         </td>
                         <td>
                             <label class="form-label" for="m3">M<sup>3</sup></label>
-                            <input type="number" class="form-control" name="m3" disabled>
+                            <input type="number" class="form-control" name="m3" disabled value="{{$lista[$i]['m3']}}">
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label for="currentMonthPrev" class="form-label">Mes Anterior</label>
-                            <input type="number" disabled class="form-control" name="currentMonthPrev">
+                            <input type="number" disabled class="form-control" name="currentMonthPrev" value="0">
                         </td>
                         <td>
                             <label class ="form-label" for="benefit">Subsidio</label>
-                            <input type="text" disabled name="benefit" class="form-control">
+                            <input type="text" disabled name="benefit" class="form-control" value="{{$lista[$i]['subsidio']}}">
                 
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label for="mulct" class="form-label">Multa</label>
-                            <input type="text" class="form-control" disabled name="mulct">
+                            <input type="text" class="form-control" disabled name="mulct" value="{{$lista[$i]['multa']}}">
                         </td>
                         <td>
                             <label for="total" class="form-label">Total</label>
-                            <input type="number" class="form-control" name="total" disabled>
+                            <input type="number" class="form-control" name="total" disabled value="{{$lista[$i]['totalfinal']}}">
                         </td>
                     </tr>
                    
@@ -92,8 +93,14 @@
     </div>
 
 </div>
-@endsection
+    @endfor
+    @endsection
+    @push('estilos')
+    <link rel="stylesheet" href="{{url('adminlte/plugins/sweetalert2/sweetalert2.min.css')}}">
+    @endpush
     @push('scripts')
+    <script src="{{url('adminlte/plugins/sweetalert2/sweetalert2@10.js')}}"></script>
+
 <script >
 $( document ).ready(function() {
     //quitamo lo active anteriores y reponemos los neesarios
@@ -101,6 +108,24 @@ $( document ).ready(function() {
     $(".administradorpositivoidentificador").addClass("active");
 //agregamos el active de la seccion
   $("#menucupondepago").addClass("active");
+  $("#alertarfacturacion").click(function(){
+    Swal.fire({
+  title: '¿estas seguro que deseas exportar? se generaran las deudas si lo haces',
+  showDenyButton: true,
+  showCancelButton: false,
+  confirmButtonText: `exportar`,
+  denyButtonText: `cancelar`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire('exportados!', 'cobros confirmados y deudas listas para pagar', 'success')
+    //redirigir
+    window.location.href="{{route('cupondepago.exportartodos')}}";
+  } else if (result.isDenied) {
+    Swal.fire('cancelado', 'no se generaron deudas', 'info')
+  }
+})
+  });
 });
 </script>
 @endpush

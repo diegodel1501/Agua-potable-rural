@@ -1,14 +1,21 @@
 @extends('layouts.app')
 @section('contenido')
-<link href="{{ asset('css/cupondepago.css') }}" rel="stylesheet">
 <div class="row">
     <div class="card col-md-9 mx-auto">
         <div class="card-header">
-            <H1>Forma General de Cupones a generar</H1>
+            <H1>seleccione vivienda para generar el cupon de pago</H1>
         </div>
         <div class="card-body">
-            <a href="{{route('cupondepago.generarcupones')}}" class="btn btn-success">generar listado de cupones</a>
-            <a href="{{route('cupondepago.generarcupon')}}" class="btn btn-warning">generar cupon de pago particular</a>
+           <form action="{{route('cupondepago.generar')}}" method="post">
+           	  @csrf
+           	   <label class="form-label" for="vivienda">seleccione..</label>
+                         <select class="form-control" name="vivienda">
+                         	@foreach($viviendas as $v)
+                         	<option value="{{$v->idvivienda}}">{{$v->direccion}}</option>
+                         	@endforeach
+    					</select>
+    					<button type="submit" class="btn btn-success">generar</button>
+           </form>
         </div>
     </div>
 </div>

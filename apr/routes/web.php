@@ -76,4 +76,11 @@ Route::put('/medicion/{id}', [MedicionController::class,'update'])->name('medici
 // rutas de cupon de pago
 
 Route::get('/cupondepago',[CupondepagoController::class,'index'])->name('cupondepago.index');
+Route::get('/generarcupones',[CupondepagoController::class,'generar'])->name('cupondepago.generarcupones');
+Route::get('/generarcupon',[CupondepagoController::class,'generarparticular'])->name('cupondepago.generarcupon');
+Route::post('/generar',[CupondepagoController::class,'mostrarparticular'])->name('cupondepago.generar');
+Route::get('/exportarunico',[CupondepagoController::class,'exportarparticular'])->name('cupondepago.exportarparticular');
+Route::get('/exportartodos',[CupondepagoController::class,'exportartodos'])->name('cupondepago.exportartodos');
+
+
 Route::get('/facturacion',[FacturaController::class,'index'])->name('factura.index');

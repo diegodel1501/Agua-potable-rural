@@ -136,13 +136,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{url('cupondepago')}}" class="nav-link ">
+                    <a href="{{url('cupondepago')}}" class="nav-link" id="menucupondepago">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Generar cupon de pago</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{url('facturacion')}}" class="nav-link">
+                    <a href="{{url('facturacion')}}" class="nav-link" id="menufacturacion">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ingresar pago</p>
                     </a>
@@ -159,25 +159,25 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link ">
+                    <a href="#" class="nav-link" id="menuestadodecuenta">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ver estado de cuentas</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" id="menuhistorialdeconsumo">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Historial de consumos</p>
                     </a>
                   </li>
                     <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                    <a href="#" class="nav-link" id="menuestadisticasdeconsumo">
+                      <i class="far fa-circle nav-icon" ></i>
                       <p> Estadisticas de Consumo</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" id="menureportesdepago">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Reportes de pago</p>
                     </a>
