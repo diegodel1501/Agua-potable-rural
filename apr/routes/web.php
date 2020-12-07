@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CupondepagoController;
+use App\Http\Controllers\FacturaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ValorM3Controller;
 use App\Http\Controllers\SubsidioController;
@@ -7,6 +9,7 @@ use App\Http\Controllers\ViviendaController;
 use App\Http\Controllers\RepresentanteController;
 use App\Http\Controllers\SaldodiferenciadoController;
 use App\Http\Controllers\MedicionController;
+use App\Models\Cupondepago;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,3 +72,17 @@ Route::post('/medicion', [MedicionController::class,'store'])->name('medicion.st
 Route::delete('/medicion/{id}', [MedicionController::class,'destroy'])->name('medicion.destroy');
 Route::get('/medicion/{id}/edit', [MedicionController::class,'edit'])->name('medicion.edit');
 Route::put('/medicion/{id}', [MedicionController::class,'update'])->name('medicion.update');
+
+// rutas de cupon de pago
+
+Route::get('/cupondepago',[CupondepagoController::class,'index'])->name('cupondepago.index');
+Route::get('/generarcupones',[CupondepagoController::class,'generar'])->name('cupondepago.generarcupones');
+Route::get('/generarcupon',[CupondepagoController::class,'generarparticular'])->name('cupondepago.generarcupon');
+Route::post('/generar',[CupondepagoController::class,'mostrarparticular'])->name('cupondepago.generar');
+Route::get('/exportarunico',[CupondepagoController::class,'exportarparticular'])->name('cupondepago.exportarparticular');
+Route::get('/exportartodos',[CupondepagoController::class,'exportartodos'])->name('cupondepago.exportartodos');
+
+//rutas de pago y facturacion
+Route::get('/facturacion',[FacturaController::class,'index'])->name('factura.index');
+Route::get('/facturacion/pagar/{id}',[FacturaController::class,'pagar'])->name('factura.pagar');
+Route::post('/facturacion/pago',[FacturaController::class,'ingresarpago'])->name('factura.ingresarpago');

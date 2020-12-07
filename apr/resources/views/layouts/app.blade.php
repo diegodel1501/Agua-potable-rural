@@ -136,13 +136,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link ">
+                    <a href="{{url('cupondepago')}}" class="nav-link" id="menucupondepago">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Generar cupon de pago</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{url('facturacion')}}" class="nav-link" id="menufacturacion">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ingresar pago</p>
                     </a>
@@ -159,25 +159,25 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link ">
+                    <a href="#" class="nav-link" id="menuestadodecuenta">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ver estado de cuentas</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" id="menuhistorialdeconsumo">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Historial de consumos</p>
                     </a>
                   </li>
                     <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                    <a href="#" class="nav-link" id="menuestadisticasdeconsumo">
+                      <i class="far fa-circle nav-icon" ></i>
                       <p> Estadisticas de Consumo</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" id="menureportesdepago">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Reportes de pago</p>
                     </a>
@@ -228,16 +228,16 @@
     <body style="background-image:url('{{url('imagenes/APR-campoflux.png')}}'); margin-top: 50px">
    <div class="container" >
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Ingresar a: Sistema administracion APR <strong> Buli Oriente</strong> San carlos</div>
+        <div class="col-md-8 ">
+            <div class="card mt-5" id="login">
+                <div class="card-header"> <b> Ingresar a: Sistema administracion APR <strong> Buli Oriente</strong> San carlos </b></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">correo ELectronico</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">Correo Electrónico</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>

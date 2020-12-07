@@ -10,12 +10,12 @@
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-condensed table-hover" id="tablavivienda">
+			<table class="table table-striped table-condensed table-hover" id="tablavivienda">
 				<thead>
 					<th>Id</th>
-					<th>direccion</th>
-					<th>numero de medidor</th>
-					<th>tipo de subsidio</th>
+					<th>Dirección</th>
+					<th>Número de medidor</th>
+					<th>Tipo de subsidio</th>
 					<th>Opciones</th>
 				</thead>
 				<tbody>
@@ -26,9 +26,9 @@
  						<td>{{$v->numeromedidor}}</td>
  						<td>{{$v->tipodesubsidio}}</td>
  					<td>
- 						<a href="{{route('vivienda.edit',$v->idvivienda)}}"><button class="btn btn-info">editar</button></a>
+ 						<a href="{{route('vivienda.edit',$v->idvivienda)}}"><button class="boton1 btn btn-info">editar</button></a>
  				
- 							<a href="" data-target="#modal-delete-{{$v->idvivienda}}" data-toggle="modal"><button class="btn btn-danger">eliminar</button></a>
+ 							<a href="" data-target="#modal-delete-{{$v->idvivienda}}" data-toggle="modal"><button class="boton1 btn btn-danger">eliminar</button></a>
  							@include('administracion.vivienda.modal')
  						</td>
  					</tr>

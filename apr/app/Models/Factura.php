@@ -16,6 +16,7 @@ class Factura extends Model
     	'idvivienda',
     	'estadodepago',
     	'totalcobrado',
-    	'estado'
+    	'estado',
+      'fecha'
     ]; 
 }

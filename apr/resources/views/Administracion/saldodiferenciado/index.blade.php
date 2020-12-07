@@ -9,13 +9,13 @@
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-condensed table-hover" id="tablasaldo">
+			<table class="table table-striped table-condensed table-hover" id="tablasaldo">
 				<thead>
 					<th>Id</th>
-					<th>tipo</th>
-					<th>descripcion</th>
-					<th>monto</th>
-					<th>vivienda</th>
+					<th>Tipo</th>
+					<th>Descripción</th>
+					<th>Monto</th>
+					<th>Vivienda</th>
 					<th>Opciones</th>
 				</thead>
 				<tbody>
