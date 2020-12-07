@@ -82,5 +82,7 @@ Route::post('/generar',[CupondepagoController::class,'mostrarparticular'])->name
 Route::get('/exportarunico',[CupondepagoController::class,'exportarparticular'])->name('cupondepago.exportarparticular');
 Route::get('/exportartodos',[CupondepagoController::class,'exportartodos'])->name('cupondepago.exportartodos');
 
-
+//rutas de pago y facturacion
 Route::get('/facturacion',[FacturaController::class,'index'])->name('factura.index');
+Route::get('/facturacion/pagar/{id}',[FacturaController::class,'pagar'])->name('factura.pagar');
+Route::post('/facturacion/pago',[FacturaController::class,'ingresarpago'])->name('factura.ingresarpago');

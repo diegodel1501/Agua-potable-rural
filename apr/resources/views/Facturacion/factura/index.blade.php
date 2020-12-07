@@ -4,7 +4,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="text-center"> Listado de Viviendas a facturar</h3>
+            <h3 class="text-center"> Listado de facturas pendientes de pago</h3>
         </div>
     
         <div class="card-body">
@@ -16,18 +16,22 @@
                         <th scope="col">Dirección</th>
                         <th scope="col">Numero de medidor</th>
                         <th scope="col">Tipo de subsidio</th>
+                        <th scope="col">monto a pagar</th>
+                        <th scope="col">fecha de factura</th>
                         <th scope="col">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($viviendas as $vivienda)
+                    @foreach ($datos as $d)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$vivienda->direccion}}</td>
-                            <td>{{$vivienda->numeromedidor}}</td>
-                            <td>{{$vivienda->tipodesubsidio}}</td>
+                            <td>{{$d->direccion}}</td>
+                            <td>{{$d->numeromedidor}}</td>
+                            <td>{{$d->tipodesubsidio}}</td>
+                            <td>{{$d->totalcobrado}}</td>
+                            <td>{{$d->fecha}}</td>
                             <td>
-                                <a href="#"><button class="btn btn-info">Facturar</button></a>
+                                <a href="{{route('factura.pagar', ['id' => $d->idfactura])}}"><button class="btn btn-info">pagar</button></a>
                             </td>
                         </tr>
                     @endforeach
