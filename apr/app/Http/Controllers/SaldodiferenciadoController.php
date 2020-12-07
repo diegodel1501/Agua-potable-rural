@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Saldodiferenciado;
 use App\Http\Requests\SaldodiferenciadoFormRequest;
 use DB;
+use RealRashid\SweetAlert\Facades\Alert;
+
+
 class SaldodiferenciadoController extends Controller
 {
         public function __construct(){
@@ -50,6 +53,9 @@ class SaldodiferenciadoController extends Controller
         $saldodiferenciado->monto=$request->get('monto');
         $saldodiferenciado->estado='activo';
         $saldodiferenciado->save();// recordar manejar save
+
+        Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
+
         return Redirect::to("/saldodiferenciado");
     }//para guardar un objeto en la bd
    
@@ -74,7 +80,8 @@ class SaldodiferenciadoController extends Controller
         $saldodiferenciado->monto=$request->get('monto');
         $saldodiferenciado->update();// recordar manejar save
   
-       
+        Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+
       return Redirect::to("/saldodiferenciado");
 
     }// para actualizar
@@ -82,6 +89,9 @@ class SaldodiferenciadoController extends Controller
                     $saldodiferenciado=Saldodiferenciado::findOrFail($id);
                     $saldodiferenciado->estado='inactivo';
                     $saldodiferenciado->update();
+
+                    Alert::success('Los datos han sido eliminados');
+             
  			return Redirect::to("/saldodiferenciado");
 
     }// para borrar

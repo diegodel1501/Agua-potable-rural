@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\representante;
 use App\Http\Requests\representanteFormRequest;
 use DB;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class RepresentanteController extends Controller
 {
        public function __construct(){
@@ -53,6 +55,9 @@ class RepresentanteController extends Controller
         $representante->telefono=$request->get('telefono');
         $representante->estado='activo';
         $representante->save();// recordar manejar save
+
+        Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
+
         return Redirect::to("/representante");
     }//para guardar un objeto en la bd
    
@@ -79,6 +84,8 @@ class RepresentanteController extends Controller
         $representante->telefono=$request->get('telefono');
         $representante->update();// recordar manejar save
   
+        Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+
        
       return Redirect::to("/representante");
 
@@ -87,6 +94,9 @@ class RepresentanteController extends Controller
                     $representante=representante::findOrFail($id);
                     $representante->estado='inactivo';
                     $representante->update();
+        
+                    Alert::success('Los datos han sido eliminados');
+
  			return Redirect::to("/representante");
 
     }// para borrar

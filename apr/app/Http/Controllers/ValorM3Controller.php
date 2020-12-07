@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\valorm3;
 use App\Http\Requests\valorm3FormRequest;
 use DB;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class ValorM3Controller extends Controller
 {
       public function __construct(){
@@ -36,6 +38,8 @@ class ValorM3Controller extends Controller
         $valorm3->precio=$request->get('precio');
         $valorm3->estado='activo';
         $valorm3->save();// recordar manejar save
+
+        Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
         return Redirect::to("/valorm3");
     }//para guardar un objeto en la bd
    
@@ -53,7 +57,9 @@ class ValorM3Controller extends Controller
         $valorm3->descripcion=$request->get('descripcion');
         $valorm3->precio=$request->get('precio');
         $valorm3->update();// recordar manejar save
-       
+      
+        Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+
       return Redirect::to("/valorm3");
 
     }// para actualizar
@@ -61,7 +67,9 @@ class ValorM3Controller extends Controller
                     $valorm3=valorm3::findOrFail($id);
                     $valorm3->estado='inactivo';
                     $valorm3->update();
- return Redirect::to("/valorm3");
+        
+         Alert::success('Los datos han sido eliminados');
+        return Redirect::to("/valorm3");
 
     }// para borrar
 }

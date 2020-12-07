@@ -16,8 +16,8 @@
      <p>
       ¿Desea Eliminar <strong>{{ $v->nombre }}</strong>?
      </p>
-     <i class="fas fa-exclamation-triangle fa-5x" style="color:orange"></i>
-
+     <i class="fas fa-exclamation-circle fa-5x" style="color:orange"></i>
+ 
     </div>
     <div class="modal-footer">
      <button type="button" class="btn btn-default" data-dismiss="modal">
