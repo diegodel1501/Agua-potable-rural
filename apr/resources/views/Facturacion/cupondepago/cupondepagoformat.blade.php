@@ -7,7 +7,7 @@
          <div class="row">
         <div class="card col-md-9 mx-auto">
             <div class="card-body">
-                <a class="btn btn-success"  id="alertarfacturacion"> Exportar a PDF</a>
+                <a class="btn btn-success"   style="color:white" id="alertarfacturacion"> Exportar a PDF</a>
                 <a class="btn btn-danger" href="{{route('cupondepago.index')}}">Volver</a>
             </div>
         </div>

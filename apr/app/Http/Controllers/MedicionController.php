@@ -92,6 +92,7 @@ class MedicionController extends Controller
             ->where('m.estado','=','activo')
             ->first();
          $viviendas=DB::table('vivienda')->where('estado','=','activo')->get();
+         
          Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
 
          return view("Administracion.Medicion.edit",["viviendas"=>$viviendas,"medicion"=>$Medicion])->withErrors("wrong");

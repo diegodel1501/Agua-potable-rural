@@ -4,7 +4,7 @@
  <form action="{{ route('subsidio.destroy', $s->idsubsidio) }}" method="POST">
   @method('DELETE')
   @csrf
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
    <div class="modal-content">
     <div class="modal-header">
      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -12,17 +12,17 @@
      </button>
     </div>
     <div class="modal-body text-center">
-     <p>
+     <p style="font-size: 20px">
       ¿Desea Eliminar <strong>{{ $s->tipodesubsidio }}</strong>?
      </p>
-     <i class="fas fa-exclamation-triangle fa-5x" style="color:orange"></i>
+     <i class="fas fa-exclamation-circle fa-5x" style="color:#17a2b8"></i>
 
     </div>
-    <div class="modal-footer">
-     <button type="button" class="btn btn-default" data-dismiss="modal">
+    <div class="form-inline mx-auto m-3">
+     <button type="button" style="width:120px"class="btn btn-danger mr-2" data-dismiss="modal">
       Cerrar
      </button>
-     <button type="submit" class="btn btn-primary">Confirmar</button>
+     <button type="submit" style="width:120px" class="btn btn-primary mr-2">Confirmar</button>
     </div>
    </div>
   </div>

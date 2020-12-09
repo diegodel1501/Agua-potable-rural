@@ -27,9 +27,9 @@
  						<td>{{$s->monto}}</td>
  						<td>{{$s->direccion}}</td>
  					<td>
- 						<a href="{{route('saldodiferenciado.edit',$s->idsaldodiferenciado)}}"><button class="btn btn-info">editar</button></a>
+ 						<a href="{{route('saldodiferenciado.edit',$s->idsaldodiferenciado)}}"><button class="boton1 btn btn-info">editar</button></a>
  				
- 							<a href="" data-target="#modal-delete-{{$s->idsaldodiferenciado}}" data-toggle="modal"><button class="btn btn-danger">eliminar</button></a>
+ 							<a href="" data-target="#modal-delete-{{$s->idsaldodiferenciado}}" data-toggle="modal"><button class="boton1 btn btn-danger">eliminar</button></a>
  							@include('administracion.saldodiferenciado.modal')
  						</td>
  					</tr>

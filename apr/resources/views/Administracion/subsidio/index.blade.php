@@ -25,9 +25,9 @@
  						<td>{{$s->descripcion}}</td>
  						<td>{{$s->porcentajededescuento}}</td>
  					<td>
- 						<a href="{{route('subsidio.edit',$s->idsubsidio)}}"><button class="btn btn-info">editar</button></a>
+ 						<a href="{{route('subsidio.edit',$s->idsubsidio)}}"><button class="boton1 btn btn-info">editar</button></a>
  				
- 							<a href="" data-target="#modal-delete-{{$s->idsubsidio}}" data-toggle="modal"><button class="btn btn-danger">eliminar</button></a>
+ 							<a href="" data-target="#modal-delete-{{$s->idsubsidio}}" data-toggle="modal"><button class="boton1 btn btn-danger">eliminar</button></a>
  							@include('administracion.subsidio.modal')
  						</td>
  					</tr>
