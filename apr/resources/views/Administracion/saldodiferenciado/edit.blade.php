@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 				<label for="monto">monto</label>
-				<input type="text" name="monto" class="form-control" required value="{{$saldodiferenciado->monto}}">
+				<input type="number" name="monto" class="form-control" required value="{{$saldodiferenciado->monto}}">
 			</div>
 		
 			<div class="form-group">
