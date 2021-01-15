@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Vivienda;
 use App\Models\Factura;
+use App\Models\Cupondepago;
 use App\Http\Requests\viviendaFormRequest;
 use App\Http\Requests\CuponPFormRequest;
 use App\Http\Requests\CuponEFormRequest;
@@ -121,10 +122,10 @@ class CupondepagoController extends Controller
            				 if(!$saldo->first()){
            				 	$multa=0;
            				 }else{
-           				 	if($saldo->tipo='haber'){
-           				 		$multa=(int)$saldo->monto;
+           				 	if($saldo->first()->tipo='haber'){
+           				 		$multa=(int)$saldo->first()->monto;
            				 	}else{
-           				 		$multa=0-(int)$saldo->monto;
+           				 		$multa=0-(int)$saldo->first()->monto;
            				 	}
            				 }
            			
@@ -172,6 +173,7 @@ class CupondepagoController extends Controller
         
     }
     public function mostrarparticular(CuponPFormRequest $request){
+
     	$fecha=explode(".",date("m.d.y"));
     	$fechaddmmaaaa=$fecha[1]."/".$fecha[0]."/".$fecha[2];
     	$idsubsidio=DB::table('vivienda')->select('idsubsidio')->where('idvivienda','=',$request->get('vivienda'))->first()->idsubsidio;
@@ -204,6 +206,7 @@ class CupondepagoController extends Controller
            				 ->where('idvivienda','=',$request->get('vivienda'))
            				 ->where('estado','=','activo')
            				 ->get();
+                   
            				 if(count($saldo)>1){
            				 	return "error problema en el saldo de la vivienda ".$direccion.", por favor regularizar antes de generar cupones, recuerde que no deben haber mas de 1 saldo inconcluso por vivienda.";
            				 }
@@ -212,9 +215,9 @@ class CupondepagoController extends Controller
            				 	$multa=0;
            				 }else{
            				 	if($saldo->tipo='haber'){
-           				 		$multa=(int)$saldo->monto;
+           				 		$multa=(int)$saldo->first()->monto;
            				 	}else{
-           				 		$multa=0-(int)$saldo->monto;
+           				 		$multa=0-(int)$saldo->first()->monto;
            				 	}
            				 }
          $m3=(int)$lecturaactual-(int)$lecturaanterior;
@@ -311,10 +314,10 @@ class CupondepagoController extends Controller
                    if(!$saldo->first()){
                     $multa=0;
                    }else{
-                    if($saldo->tipo='haber'){
-                      $multa=(int)$saldo->monto;
+                    if($saldo->first()->tipo='haber'){
+                      $multa=(int)$saldo->first()->monto;
                     }else{
-                      $multa=0-(int)$saldo->monto;
+                      $multa=0-(int)$saldo->first()->monto;
                     }
                    }
                  $totalfinal=(((int)($lecturasactuales[$i]->valordemedicion)-(int)($lecturasanteriores[$i]->valordemedicion))
@@ -338,8 +341,13 @@ class CupondepagoController extends Controller
                      'mesanterior'=>'0',
                      'totalfinal'=>$totalfinal
                     );
-
-                       //generar facturas
+                  //      generar cupones de pago
+                  $cupon=new Cupondepago;
+                  $cupon->idvivienda=$listadeViviendas[$i]->idvivienda;
+                  $cupon->idvalor=$totalfinal;
+                  $cupon->fecha=date('Y-m-d');
+                  $cupon->save();    
+                  //generar facturas
                 $this->generarfacturaparticular($totalfinal,$listadeViviendas[$i]->idvivienda);
                 }else{
                   return "error no tenemos datos de medicion de este mes en la vivienda:".$listadeViviendas[$i]->direccion.", por favor regularizar antes de generar cupones.";

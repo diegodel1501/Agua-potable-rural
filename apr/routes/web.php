@@ -9,6 +9,8 @@ use App\Http\Controllers\ViviendaController;
 use App\Http\Controllers\RepresentanteController;
 use App\Http\Controllers\SaldodiferenciadoController;
 use App\Http\Controllers\MedicionController;
+use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\ReportesController;
 use App\Models\Cupondepago;
 
 /*
@@ -27,7 +29,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+//validacion para registro de usuario
+Route::get('/registro', [App\Http\Controllers\RegistroController::class, 'registro'])->name('registro');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
@@ -86,3 +89,13 @@ Route::get('/exportartodos',[CupondepagoController::class,'exportartodos'])->nam
 Route::get('/facturacion',[FacturaController::class,'index'])->name('factura.index');
 Route::get('/facturacion/pagar/{id}',[FacturaController::class,'pagar'])->name('factura.pagar');
 Route::post('/facturacion/pago',[FacturaController::class,'ingresarpago'])->name('factura.ingresarpago');
+// rutas de reportes
+Route::get('/estadodecuentas',[ReportesController::class,'estadodecuentasgeneral'])->name('reporte.estadodecuentas');
+Route::get('/Historialdeconsumos',[ReportesController::class,'historialdeconsumosgeneral'])->name('reporte.Historialdeconsumos');
+Route::get('/estadisticasdeconsumos',[ReportesController::class,'estadisticasdeconsumogeneral'])->name('reporte.estadisticasdeconsumos');
+Route::get('/reportesdepagos',[ReportesController::class,'reportesdepagogeneral'])->name('reporte.reportesdepagos');
+
+Route::get('/estadodecuenta/{id}',[ReportesController::class,'estadodecuentasparticular'])->name('reporte.estadodecuenta');
+Route::get('/Historialdeconsumo/{id}',[ReportesController::class,'historialdeconsumosparticular'])->name('reporte.Historialdeconsumo');
+Route::get('/estadisticasdeconsumo/{id}',[ReportesController::class,'estadisticasdeconsumoparticular'])->name('reporte.estadisticasdeconsumo');
+Route::get('/reportesdepago/{id}',[ReportesController::class,'reportesdepagoparticular'])->name('reporte.reportesdepago');

@@ -74,7 +74,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="mulct" class="form-label">Multa</label>
+                            <label for="mulct" class="form-label">Saldo a favor/ en contra</label>
                             <input type="text" class="form-control" disabled name="mulct" value="{{$lista[$i]['multa']}}">
                         </td>
                         <td>
@@ -106,6 +106,8 @@ $( document ).ready(function() {
     //quitamo lo active anteriores y reponemos los neesarios
     $(".nav-link").removeClass("active");
     $(".administradorpositivoidentificador").addClass("active");
+    $("#reportesopcionabrircerrar").removeClass("menu-open");
+    $("#administracionopcionabrircerrar").removeClass("menu-open");
 //agregamos el active de la seccion
   $("#menucupondepago").addClass("active");
   $("#alertarfacturacion").click(function(){

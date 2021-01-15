@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('contenido')
 <div class="row">
-	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-2">
 		<h3>Listado de valores por metro cúbico</h3>
@@ -44,6 +43,7 @@
  </div>
  @endsection
  @push('estilos')
+
   <link rel="stylesheet" href="{{url('adminlte/plugins/datatables/jquery.datatables.min.css')}}">
 @endpush
   @push('scripts')
@@ -53,6 +53,8 @@ $( document ).ready(function() {
 	//quitamo lo active anteriores y reponemos los neesarios
 	$(".nav-link").removeClass("active");
 	$(".administradorpositivoidentificador").addClass("active");
+      $("#reportesopcionabrircerrar").removeClass("menu-open");
+    $("#facturacionopcionabrircerrar").removeClass("menu-open");
 //agregamos el active de la seccion
   $("#menuvalor").addClass("active");
    $('#tablavalor').DataTable({
@@ -83,8 +85,6 @@ $( document ).ready(function() {
                 scrollY: 200,
                 lengthMenu: [ [3,7,-1], [3,7,"todos"] ],
             });
-});
-</script>
 });
 </script>
 @endpush

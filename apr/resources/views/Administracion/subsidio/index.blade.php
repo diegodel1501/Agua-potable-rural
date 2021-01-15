@@ -51,6 +51,8 @@ $( document ).ready(function() {
 	//quitamo lo active anteriores y reponemos los neesarios
 	$(".nav-link").removeClass("active");
 	$(".administradorpositivoidentificador").addClass("active");
+      $("#reportesopcionabrircerrar").removeClass("menu-open");
+    $("#facturacionopcionabrircerrar").removeClass("menu-open");
 //agregamos el active de la seccion
   $("#menusubsidio").addClass("active");
    $('#tablasubsidio').DataTable({
@@ -83,6 +85,5 @@ $( document ).ready(function() {
             });
 });
 </script>
-});
-</script>
+
 @endpush

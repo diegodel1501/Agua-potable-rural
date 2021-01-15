@@ -39,7 +39,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid black;">
-                            <label>Multa: {{$multa}}</label>
+                            <label>Saldo a favor/ en contra: {{$multa}}</label>
                         </td>
                         <td style="border: 1px solid black;">
                             <label>Total: {{$totalfinal}}</label>
