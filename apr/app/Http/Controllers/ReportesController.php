@@ -2,32 +2,51 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Vivienda;
+use App\Models\Factura;
+use App\Models\Cupondepago;
+use DB;
 class ReportesController extends Controller{
 
     public function estadodecuentasgeneral(){
+      // lista con las viviendas y el boton de ver 
 
-        return view("Reportes.estadodecuentasgeneral");
+        $viviendas=vivienda::where('estado','activo')->get();
+
+        return view("Reportes.estadodecuentasgeneral", ["viviendas"=>$viviendas]);
     }
        public function historialdeconsumosgeneral(){
-        return view("Reportes.historialdeconsumosgeneral");
+         $viviendas=vivienda::where('estado','activo')->get();
+        return view("Reportes.historialdeconsumosgeneral", ["viviendas"=>$viviendas]);
     }
        public function estadisticasdeconsumogeneral(){
-        return view("Reportes.estadisticasdeconsumogeneral");
+         $viviendas=vivienda::where('estado','activo')->get();
+        return view("Reportes.estadisticasdeconsumogeneral", ["viviendas"=>$viviendas]);
     }
        public function reportesdepagogeneral(){
-        return view("Reportes.reportesdepagogeneral");
+         $viviendas=vivienda::where('estado','activo')->get();
+        return view("Reportes.reportesdepagogeneral", ["viviendas"=>$viviendas]);
     }
-       public function estadodecuentasparticular($id){
-        return "estadodecuentasparticular";
+       public function estadodecuentasparticular($idvivienda){
+        $facturas=Factura::where('estado','activo')->where('idvivienda',$idvivienda)->get();
+        $vivienda=Vivienda::where('idvivienda',$idvivienda)->first();
+        return view("Reportes.estadodecuentasparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda]);
     }
-       public function historialdeconsumosparticular($id){
-        return "historialdeconsumosparticular";
+       public function historialdeconsumosparticular($idvivienda){
+        $facturas=Factura::where('estado','activo')->where('idvivienda',$idvivienda)->get();
+        $vivienda=Vivienda::where('idvivienda',$idvivienda)->first();
+        return view("Reportes.historialdeconsumosparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda]);
     }
-      public function estadisticasdeconsumoparticular($id){
-        return "estadisticasdeconsumoparticular";
+      public function estadisticasdeconsumoparticular($idvivienda){
+        $facturas=Factura::where('estado','activo')->where('idvivienda',$idvivienda)->get();
+        $vivienda=Vivienda::where('idvivienda',$idvivienda)->first();
+        return view("Reportes.estadisticasdeconsumoparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda]);
     }
-       public function reportesdepagoparticular($id){
-        return "reportesdepagoparticular";
+       public function reportesdepagoparticular($idvivienda){
+        $facturas=Factura::where('estado','activo')->where('idvivienda',$idvivienda)->get();
+        $vivienda=Vivienda::where('idvivienda',$idvivienda)->first();
+        return view("Reportes.reportesdepagoparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda]);
+
     }
      
 }
