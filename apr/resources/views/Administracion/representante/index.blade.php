@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('contenido')
-<div class="row">
+<div class="row ml-1">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<h3>Listado de socios registrados</h3>
 		@include('Administracion.representante.search')
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	</div>	
 </div>
-<div class="row">
+<div class="row mt-2">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
 			<table class="table table-striped table-condensed table-hover" id="tablarepresentante">
@@ -30,9 +30,9 @@
  						<td>{{$r->telefono}}</td>
  						<td>{{$r->direccion}}</td>
  					<td>
- 						<a href="{{route('representante.edit',$r->idrepresentante)}}"><button class="boton1 btn boton-info">editar</button></a>
+ 						<a href="{{route('representante.edit',$r->idrepresentante)}}"><button class=" btn boton-info"><i class="fas fa-pen"></i></button></a>
  				
- 							<a href="" data-target="#modal-delete-{{$r->idrepresentante}}" data-toggle="modal"><button class="boton1 btn btn-danger">eliminar</button></a>
+ 							<a href="" data-target="#modal-delete-{{$r->idrepresentante}}" data-toggle="modal"><button class=" btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
  							@include('administracion.representante.modal')
  						</td>
  					</tr>

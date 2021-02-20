@@ -6,7 +6,7 @@
 		@include('Administracion.saldodiferenciado.search')
 	</div>	
 </div>
-<div class="row">
+<div class="row mt-2 ml-1">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
 			<table class="table table-striped table-condensed table-hover" id="tablasaldo">
@@ -27,9 +27,9 @@
  						<td>{{$s->monto}}</td>
  						<td>{{$s->direccion}}</td>
  					<td>
- 						<a href="{{route('saldodiferenciado.edit',$s->idsaldodiferenciado)}}"><button class="boton1 btn btn-info">editar</button></a>
+ 						<a href="{{route('saldodiferenciado.edit',$s->idsaldodiferenciado)}}"><button class=" btn boton-info"><i class="fas fa-pen"></i></button></a>
  				
- 							<a href="" data-target="#modal-delete-{{$s->idsaldodiferenciado}}" data-toggle="modal"><button class="boton1 btn btn-danger">eliminar</button></a>
+ 							<a href="" data-target="#modal-delete-{{$s->idsaldodiferenciado}}" data-toggle="modal"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
  							@include('administracion.saldodiferenciado.modal')
  						</td>
  					</tr>

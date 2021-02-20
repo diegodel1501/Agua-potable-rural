@@ -32,7 +32,7 @@
                             <td>{{$datos[$d]['deuda']}}</td>
                             <td>{{$datos[$d]['fecha']}}</td>
                             <td>
-                                <a href="{{route('factura.pagar', ['id' => $datos[$d]['idfactura']])}}"><button class="btn btn-info">pagar</button></a>
+                                <a href="{{route('factura.pagar', ['id' => $datos[$d]['idfactura']])}}"><button class="btn boton-info">pagar</button></a>
                             </td>
                         </tr>
                     @endfor

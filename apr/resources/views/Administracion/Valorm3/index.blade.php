@@ -7,7 +7,7 @@
 		@include('Administracion.Valorm3.search')
 	</div>	
 </div>
-<div class="row mt-2">
+<div class="row mt-2 ml-2">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
 			<table class="table table-striped table-condensed table-hover" id="tablavalor">
@@ -28,9 +28,9 @@
  						<td>{{$v->estado}}</td>
  						<td>{{$v->precio}}</td>
  					<td>
- 						<a href="{{route('valor.edit',$v->idValorM3)}}"><button class="boton1 btn boton-info ">editar</button></a>
- 				
- 							<a href="" data-target="#modal-delete-{{$v->idValorM3}}" data-toggle="modal"><button class="boton1 btn btn-danger">eliminar</button></a>
+ 						<a href="{{route('valor.edit',$v->idValorM3)}}"><button class=" btn boton-info " ><i class="fas fa-pen"></i></button></a>
+						
+ 							<a href="" data-target="#modal-delete-{{$v->idValorM3}}" data-toggle="modal"><button class=" btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
  						@include('administracion.valorm3.modal')
  						</td>
  					</tr>

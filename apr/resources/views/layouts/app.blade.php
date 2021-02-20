@@ -9,6 +9,8 @@
   <title>Administracion APR</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{url('adminlte/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url('adminlte/dist/css/adminlte.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
@@ -69,6 +71,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 <!-- Add icons to the links using the .nav-icon class
   with font-awesome or any other icon font library -->
+   
   <li class="nav-item has-treeview menu-open" id="administracionopcionabrircerrar">
     <span class="nav-link active administradorpositivoidentificador">
       <i class="nav-icon  fas fa-laptop"></i>
@@ -77,7 +80,9 @@
         <i class="right fas fa-angle-left"></i>
       </p>
     </span>
+
     <ul class="nav nav-treeview" #administration>
+      @if(Auth::user()->Rol=='admin')
       <li class="nav-item">
         <a href="{{url('valorm3')}}" id="menuvalor" class="nav-link">
           <i class="far fa-circle nav-icon"></i>
@@ -108,14 +113,18 @@
           <p>Adm.  saldos diferidos</p>
         </a>
       </li>
+      @endif
+      @if(Auth::user()->Rol=='admin' || Auth::user()->Rol=="encargado")
       <li class="nav-item">
         <a href="{{url('medicion')}}" id="menumedicion" class="nav-link">
           <i class="far fa-circle nav-icon"></i>
           <p>Adm. medicion</p>
         </a>
       </li>
+      @endif()
     </ul>
   </li>
+  @if(Auth::user()->Rol=="admin")
   <li class="nav-item has-treeview menu-open" id="facturacionopcionabrircerrar">
     <a href="#" class="nav-link active administradorpositivoidentificador">
       <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -174,6 +183,8 @@
       </li>
     </ul>
   </li>
+  @endif
+ 
 </ul>
 </nav>
 </div>
