@@ -34,68 +34,75 @@ Route::get('/registro', [App\Http\Controllers\RegistroController::class, 'regist
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
-Route::get('/valorm3', [Valorm3Controller::class,'index'])->name('valor.index');
-Route::get('/valorm3/create', [Valorm3Controller::class,'create'])->name('valor.create');
-Route::post('/valorm3', [Valorm3Controller::class,'store'])->name('valor.store');
-Route::delete('/valorm3/{id}', [Valorm3Controller::class,'destroy'])->name('valor.destroy');
-Route::get('/valorm3/{id}/edit', [Valorm3Controller::class,'edit'])->name('valor.edit');
-Route::put('/valorm3/{id}', [Valorm3Controller::class,'update'])->name('valor.update');
-// rutas de subsidio
-Route::get('/subsidio', [SubsidioController::class,'index'])->name('subsidio.index');
-Route::get('/subsidio/create', [SubsidioController::class,'create'])->name('subsidio.create');
-Route::post('/subsidio', [SubsidioController::class,'store'])->name('subsidio.store');
-Route::delete('/subsidio/{id}', [SubsidioController::class,'destroy'])->name('subsidio.destroy');
-Route::get('/subsidio/{id}/edit', [SubsidioController::class,'edit'])->name('subsidio.edit');
-Route::put('/subsidio/{id}', [SubsidioController::class,'update'])->name('subsidio.update');
-// rutas de vivienda
-Route::get('/vivienda', [ViviendaController::class,'index'])->name('vivienda.index');
-Route::get('/vivienda/create', [ViviendaController::class,'create'])->name('vivienda.create');
-Route::post('/vivienda', [ViviendaController::class,'store'])->name('vivienda.store');
-Route::delete('/vivienda/{id}', [ViviendaController::class,'destroy'])->name('vivienda.destroy');
-Route::get('/vivienda/{id}/edit', [ViviendaController::class,'edit'])->name('vivienda.edit');
-Route::put('/vivienda/{id}', [ViviendaController::class,'update'])->name('vivienda.update');
-// rutas de representante
-Route::get('/representante', [RepresentanteController::class,'index'])->name('representante.index');
-Route::get('/representante/create', [RepresentanteController::class,'create'])->name('representante.create');
-Route::post('/representante', [RepresentanteController::class,'store'])->name('representante.store');
-Route::delete('/representante/{id}', [RepresentanteController::class,'destroy'])->name('representante.destroy');
-Route::get('/representante/{id}/edit', [RepresentanteController::class,'edit'])->name('representante.edit');
-Route::put('/representante/{id}', [RepresentanteController::class,'update'])->name('representante.update');
-//rutas de saldo diferenciado
-Route::get('/saldodiferenciado', [SaldodiferenciadoController::class,'index'])->name('saldodiferenciado.index');
-Route::get('/saldodiferenciado/create', [SaldodiferenciadoController::class,'create'])->name('saldodiferenciado.create');
-Route::post('/saldodiferenciado', [SaldodiferenciadoController::class,'store'])->name('saldodiferenciado.store');
-Route::delete('/saldodiferenciado/{id}', [SaldodiferenciadoController::class,'destroy'])->name('saldodiferenciado.destroy');
-Route::get('/saldodiferenciado/{id}/edit', [SaldodiferenciadoController::class,'edit'])->name('saldodiferenciado.edit');
-Route::put('/saldodiferenciado/{id}', [SaldodiferenciadoController::class,'update'])->name('saldodiferenciado.update');
-// rutas de medicion
-Route::get('/medicion', [MedicionController::class,'index'])->name('medicion.index');
-Route::get('/medicion/create', [MedicionController::class,'create'])->name('medicion.create');
-Route::post('/medicion', [MedicionController::class,'store'])->name('medicion.store');
-Route::delete('/medicion/{id}', [MedicionController::class,'destroy'])->name('medicion.destroy');
-Route::get('/medicion/{id}/edit', [MedicionController::class,'edit'])->name('medicion.edit');
-Route::put('/medicion/{id}', [MedicionController::class,'update'])->name('medicion.update');
 
-// rutas de cupon de pago
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/valorm3', [Valorm3Controller::class, 'index'])->name('valor.index');
+    Route::get('/valorm3/create', [Valorm3Controller::class, 'create'])->name('valor.create');
+    Route::post('/valorm3', [Valorm3Controller::class, 'store'])->name('valor.store');
+    Route::delete('/valorm3/{id}', [Valorm3Controller::class, 'destroy'])->name('valor.destroy');
+    Route::get('/valorm3/{id}/edit', [Valorm3Controller::class, 'edit'])->name('valor.edit');
+    Route::put('/valorm3/{id}', [Valorm3Controller::class, 'update'])->name('valor.update');
+    // rutas de subsidio
+    Route::get('/subsidio', [SubsidioController::class, 'index'])->name('subsidio.index');
+    Route::get('/subsidio/create', [SubsidioController::class, 'create'])->name('subsidio.create');
+    Route::post('/subsidio', [SubsidioController::class, 'store'])->name('subsidio.store');
+    Route::delete('/subsidio/{id}', [SubsidioController::class, 'destroy'])->name('subsidio.destroy');
+    Route::get('/subsidio/{id}/edit', [SubsidioController::class, 'edit'])->name('subsidio.edit');
+    Route::put('/subsidio/{id}', [SubsidioController::class, 'update'])->name('subsidio.update');
+    // rutas de vivienda
+    Route::get('/vivienda', [ViviendaController::class, 'index'])->name('vivienda.index');
+    Route::get('/vivienda/create', [ViviendaController::class, 'create'])->name('vivienda.create');
+    Route::post('/vivienda', [ViviendaController::class, 'store'])->name('vivienda.store');
+    Route::delete('/vivienda/{id}', [ViviendaController::class, 'destroy'])->name('vivienda.destroy');
+    Route::get('/vivienda/{id}/edit', [ViviendaController::class, 'edit'])->name('vivienda.edit');
+    Route::put('/vivienda/{id}', [ViviendaController::class, 'update'])->name('vivienda.update');
+    // rutas de representante
+    Route::get('/representante', [RepresentanteController::class, 'index'])->name('representante.index');
+    Route::get('/representante/create', [RepresentanteController::class, 'create'])->name('representante.create');
+    Route::post('/representante', [RepresentanteController::class, 'store'])->name('representante.store');
+    Route::delete('/representante/{id}', [RepresentanteController::class, 'destroy'])->name('representante.destroy');
+    Route::get('/representante/{id}/edit', [RepresentanteController::class, 'edit'])->name('representante.edit');
+    Route::put('/representante/{id}', [RepresentanteController::class, 'update'])->name('representante.update');
+    //rutas de saldo diferenciado
+    Route::get('/saldodiferenciado', [SaldodiferenciadoController::class, 'index'])->name('saldodiferenciado.index');
+    Route::get('/saldodiferenciado/create', [SaldodiferenciadoController::class, 'create'])->name('saldodiferenciado.create');
+    Route::post('/saldodiferenciado', [SaldodiferenciadoController::class, 'store'])->name('saldodiferenciado.store');
+    Route::delete('/saldodiferenciado/{id}', [SaldodiferenciadoController::class, 'destroy'])->name('saldodiferenciado.destroy');
+    Route::get('/saldodiferenciado/{id}/edit', [SaldodiferenciadoController::class, 'edit'])->name('saldodiferenciado.edit');
+    Route::put('/saldodiferenciado/{id}', [SaldodiferenciadoController::class, 'update'])->name('saldodiferenciado.update');
 
-Route::get('/cupondepago',[CupondepagoController::class,'index'])->name('cupondepago.index');
-Route::get('/generarcupones',[CupondepagoController::class,'generar'])->name('cupondepago.generarcupones');
-Route::get('/generarcupon',[CupondepagoController::class,'generarparticular'])->name('cupondepago.generarcupon');
-Route::post('/generar',[CupondepagoController::class,'mostrarparticular'])->name('cupondepago.generar');
-Route::get('/exportarunico',[CupondepagoController::class,'exportarparticular'])->name('cupondepago.exportarparticular');
-Route::get('/exportartodos',[CupondepagoController::class,'exportartodos'])->name('cupondepago.exportartodos');
 
-//rutas de pago y facturacion
-Route::get('/facturacion',[FacturaController::class,'index'])->name('factura.index');
-Route::get('/facturacion/pagar/{id}',[FacturaController::class,'pagar'])->name('factura.pagar');
-Route::post('/facturacion/pago',[FacturaController::class,'ingresarpago'])->name('factura.ingresarpago');
-// rutas de reportes
-Route::get('/estadodecuentas',[ReportesController::class,'estadodecuentasgeneral'])->name('reporte.estadodecuentas');
-Route::get('/Historialdeconsumos',[ReportesController::class,'historialdeconsumosgeneral'])->name('reporte.Historialdeconsumos');
-Route::get('/estadisticasdeconsumos',[ReportesController::class,'estadisticasdeconsumogeneral'])->name('reporte.estadisticasdeconsumos');
-Route::get('/reportesdepagos',[ReportesController::class,'reportesdepagogeneral'])->name('reporte.reportesdepagos');
+    // rutas de cupon de pago
 
-Route::get('/estadodecuenta/{id}',[ReportesController::class,'estadodecuentasparticular'])->name('reporte.estadodecuenta');
-Route::get('/Historialdeconsumo/{id}',[ReportesController::class,'historialdeconsumosparticular'])->name('reporte.Historialdeconsumo');
-Route::get('/estadisticasdeconsumo/{id}',[ReportesController::class,'estadisticasdeconsumoparticular'])->name('reporte.estadisticasdeconsumo');
-Route::get('/reportesdepago/{id}',[ReportesController::class,'reportesdepagoparticular'])->name('reporte.reportesdepago');
+    Route::get('/cupondepago', [CupondepagoController::class, 'index'])->name('cupondepago.index');
+    Route::get('/generarcupones', [CupondepagoController::class, 'generar'])->name('cupondepago.generarcupones');
+    Route::get('/generarcupon', [CupondepagoController::class, 'generarparticular'])->name('cupondepago.generarcupon');
+    Route::post('/generar', [CupondepagoController::class, 'mostrarparticular'])->name('cupondepago.generar');
+    Route::get('/exportarunico', [CupondepagoController::class, 'exportarparticular'])->name('cupondepago.exportarparticular');
+    Route::get('/exportartodos', [CupondepagoController::class, 'exportartodos'])->name('cupondepago.exportartodos');
+
+    //rutas de pago y facturacion
+    Route::get('/facturacion', [FacturaController::class, 'index'])->name('factura.index');
+    Route::get('/facturacion/pagar/{id}', [FacturaController::class, 'pagar'])->name('factura.pagar');
+    Route::post('/facturacion/pago', [FacturaController::class, 'ingresarpago'])->name('factura.ingresarpago');
+    // rutas de reportes
+    Route::get('/estadodecuentas', [ReportesController::class, 'estadodecuentasgeneral'])->name('reporte.estadodecuentas');
+    Route::get('/Historialdeconsumos', [ReportesController::class, 'historialdeconsumosgeneral'])->name('reporte.Historialdeconsumos');
+    Route::get('/estadisticasdeconsumos', [ReportesController::class, 'estadisticasdeconsumogeneral'])->name('reporte.estadisticasdeconsumos');
+    Route::get('/reportesdepagos', [ReportesController::class, 'reportesdepagogeneral'])->name('reporte.reportesdepagos');
+
+    Route::get('/estadodecuenta/{id}', [ReportesController::class, 'estadodecuentasparticular'])->name('reporte.estadodecuenta');
+    Route::get('/Historialdeconsumo/{id}', [ReportesController::class, 'historialdeconsumosparticular'])->name('reporte.Historialdeconsumo');
+    Route::get('/estadisticasdeconsumo/{id}', [ReportesController::class, 'estadisticasdeconsumoparticular'])->name('reporte.estadisticasdeconsumo');
+    Route::get('/reportesdepago/{id}', [ReportesController::class, 'reportesdepagoparticular'])->name('reporte.reportesdepago');
+});
+
+Route::group(['middleware' => 'encargado'], function () {
+    // rutas de medicion
+    Route::get('/medicion', [MedicionController::class, 'index'])->name('medicion.index');
+    Route::get('/medicion/create', [MedicionController::class, 'create'])->name('medicion.create');
+    Route::post('/medicion', [MedicionController::class, 'store'])->name('medicion.store');
+    Route::delete('/medicion/{id}', [MedicionController::class, 'destroy'])->name('medicion.destroy');
+    Route::get('/medicion/{id}/edit', [MedicionController::class, 'edit'])->name('medicion.edit');
+    Route::put('/medicion/{id}', [MedicionController::class, 'update'])->name('medicion.update');
+});
