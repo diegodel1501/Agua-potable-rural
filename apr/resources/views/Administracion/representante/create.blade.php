@@ -24,7 +24,7 @@
 		
 			<div class="form-group">
 				<label for="rut">rut</label>
-				<input type="tex" name="rut" class="form-control" required  value="{{old('rut')}}">
+				<input type="tex" name="rut"  id="rut"class="form-control" required  value="{{old('rut')}}">
 			</div>
 				<div class="form-group">
 				<label for="telefono">telefono</label>
@@ -36,7 +36,7 @@
 			</div>
 			<div class="form-group">
 									<label for="idvivienda">vivienda</label>
-									<select name="idvivienda" class="form-control selectpicker " required data-live-search="true">
+									<select name="idvivienda" class="form-control  " required data-live-search="true">
 										<option value="" > seleccione </option>
 										@foreach ($viviendas as $v)
 										<option value="{{$v->idvivienda}}"> {{$v->direccion}} </option>
@@ -64,5 +64,18 @@
               </div><!-- /.col -->
                </div>
 @endsection
+@push('scripts')
+<script src="{{url('js/jquery.rut.js')}}"></script>
+<script>
+	$(document).ready(function(){
+		
+		$("#rut").rut();
+		
+	});
+ 
+</script>
+@endpush
+@push('estilos')
+@endpush
 
 

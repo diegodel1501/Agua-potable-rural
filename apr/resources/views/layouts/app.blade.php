@@ -71,7 +71,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 <!-- Add icons to the links using the .nav-icon class
   with font-awesome or any other icon font library -->
-   
+  @if(Auth::user()->Rol=='admin')
+
   <li class="nav-item has-treeview menu-open" id="administracionopcionabrircerrar">
     <span class="nav-link active administradorpositivoidentificador">
       <i class="nav-icon  fas fa-laptop"></i>
@@ -82,8 +83,7 @@
     </span>
 
     <ul class="nav nav-treeview" #administration>
-      @if(Auth::user()->Rol=='admin')
-      <li class="nav-item">
+           <li class="nav-item">
         <a href="{{url('valorm3')}}" id="menuvalor" class="nav-link">
           <i class="far fa-circle nav-icon"></i>
           <p>Adm. Valor por m3 </p>
@@ -113,11 +113,19 @@
           <p>Adm.  saldos diferidos</p>
         </a>
       </li>
-      @endif
-      @if(Auth::user()->Rol=='admin' || Auth::user()->Rol=="encargado")
       <li class="nav-item">
         <a href="{{url('medicion')}}" id="menumedicion" class="nav-link">
           <i class="far fa-circle nav-icon"></i>
+          <p>Adm. medicion</p>
+        </a>
+      </li>
+      @endif
+      @if( Auth::user()->Rol=="encargado")
+      <li class="nav-item has-treeview menu-open" id="administracionopcionabrircerrar">
+       
+
+        <a href="{{url('medicionEncargado')}}" id="menumedicion2" class="nav-link">
+          <i class="far fa-angle-right nav-icon"></i>
           <p>Adm. medicion</p>
         </a>
       </li>
@@ -166,13 +174,13 @@
       <li class="nav-item">
         <a href="{{url('Historialdeconsumos')}}" class="nav-link" id="menuhistorialdeconsumo">
           <i class="far fa-circle nav-icon"></i>
-          <p>Historial de consumos</p>
+          <p>Historial de Consumos</p>
         </a>
       </li>
       <li class="nav-item">
         <a href="{{url('estadisticasdeconsumos')}}" class="nav-link" id="menuestadisticasdeconsumo">
           <i class="far fa-circle nav-icon" ></i>
-          <p> Estadisticas de Consumo</p>
+          <p> Estadisticas de Consumos</p>
         </a>
       </li>
       <li class="nav-item">
@@ -184,10 +192,48 @@
     </ul>
   </li>
   @endif
- 
+  @if( Auth::user()->Rol=="socio")
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+  <li class="nav-item has-treeview menu-open" id="reportesopcionabrircerrar">
+    <a href="#" class="nav-link active administradorpositivoidentificador">
+      <i class="nav-icon fas fa-book"></i>
+      <p>
+        Reporte
+        <i class="right fas fa-angle-left"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{url('estadodecuenta')}}" class="nav-link" id="menuestadodecuenta">
+          <i class="far fa-circle nav-icon"></i>
+          <p>Ver estado de cuenta</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{url('Historialdeconsumo')}}" class="nav-link" id="menuhistorialdeconsumo">
+          <i class="far fa-circle nav-icon"></i>
+          <p>Historial de consumo</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{url('estadisticasdeconsumo')}}" class="nav-link" id="menuestadisticasdeconsumo">
+          <i class="far fa-circle nav-icon" ></i>
+          <p> Estadisticas de Consumo</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{url('reportesdepago')}}" class="nav-link" id="menureportesdepago">
+          <i class="far fa-circle nav-icon"></i>
+          <p>Reportes de pago</p>
+        </a>
+      </li>
+    </ul>
+  </li>
 </ul>
 </nav>
 </div>
+  @endif
+
 <!-- /.sidebar -->
 </aside>
 <div class="content-wrapper">

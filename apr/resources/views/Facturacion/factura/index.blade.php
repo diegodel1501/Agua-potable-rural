@@ -7,7 +7,7 @@
         </div>
     
         <div class="card-body">
-            <table class="table table-striped table-condensed">
+            <table  id="tablavivienda" class="table table-striped table-condensed">
                 <thead>
 
                     <tr>
@@ -32,7 +32,7 @@
                             <td>{{$datos[$d]['deuda']}}</td>
                             <td>{{$datos[$d]['fecha']}}</td>
                             <td>
-                                <a href="{{route('factura.pagar', ['id' => $datos[$d]['idfactura']])}}"><button class="btn boton-info">pagar</button></a>
+                                <a href="{{route('factura.pagar', ['id' => $datos[$d]['idfactura']])}}"><button class="btn btn-success"><i class="fa fa-credit-card"></i></button></a>
                             </td>
                         </tr>
                     @endfor
@@ -44,12 +44,15 @@
 
 
 @endsection
+
  @push('estilos')
-    <link rel="stylesheet" href="{{url('adminlte/plugins/sweetalert2/sweetalert2.min.css')}}">
-    <link href="{{ asset('css/factura.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{url('adminlte/plugins/sweetalert2/sweetalert2.min.css')}}">
+<link rel="stylesheet" href="{{url('adminlte/plugins/datatables/jquery.datatables.min.css')}}">
+<link href="{{ asset('css/factura.css') }}" rel="stylesheet">
     @endpush
     @push('scripts')
     <script src="{{url('adminlte/plugins/sweetalert2/sweetalert2@10.js')}}"></script>
+    <script src="{{url('adminlte/plugins/datatables/jquery.datatables.min.js')}}"></script>
 
 <script >
 $( document ).ready(function() {
@@ -60,6 +63,35 @@ $( document ).ready(function() {
     $("#administracionopcionabrircerrar").removeClass("menu-open");
 //agregamos el active de la seccion
   $("#menufacturacion").addClass("active");
+  $('#tablavivienda').DataTable({
+                  searching: true,
+                  paging:true,
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: " Primero ",
+                        previous: " Anterior ",
+                        next: " Siguiente ",
+                        last: " Ultimo "
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+                scrollY: 250,
+                lengthMenu: [ [5,10,15,20,-1], [5,10,15,20,"todos"] ],
+            });
+
 });
 </script>
 @endpush

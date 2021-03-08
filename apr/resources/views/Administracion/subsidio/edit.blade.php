@@ -29,7 +29,7 @@
 			
 			<div class="form-group">
 				<label for="porcentajededescuento">porcentaje de subsidio</label>
-				<input type="number" name="porcentajededescuento" class="form-control" required value="{{$subsidio->porcentajededescuento}}">
+				<input type="number" name="porcentajededescuento" max="100" min="1"	class="form-control" required value="{{$subsidio->porcentajededescuento}}">
 			</div>
 	
 		<div class="form-group">

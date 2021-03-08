@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Saldodiferenciado;
 use App\Http\Requests\SaldodiferenciadoFormRequest;
+use DateTime;
 use DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -46,16 +47,19 @@ class SaldodiferenciadoController extends Controller
     }// para crear un objeto del modelo
 
     public function store(SaldodiferenciadoFormRequest $request){
+    
         $saldodiferenciado = new Saldodiferenciado;
         $saldodiferenciado->idvivienda=$request->get('idvivienda');
         $saldodiferenciado->tipo=$request->get('tipo');
-        $saldodiferenciado->descripcion=$request->get('descripcion');
+        $saldodiferenciado->descripcion=$request->get('descripcion')."fecha: ".date("Y-m-d" ,strtotime("now"));
         $saldodiferenciado->monto=$request->get('monto');
         $saldodiferenciado->estado='activo';
-        $saldodiferenciado->save();// recordar manejar save
-
+        $result= $saldodiferenciado->save();// recordar manejar save
+        if($result){
         Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
-
+        }else{
+        Alert::error('opss!!','La deuda no se registro correctamente');
+        }
         return Redirect::to("/saldodiferenciado");
     }//para guardar un objeto en la bd
    
@@ -78,9 +82,12 @@ class SaldodiferenciadoController extends Controller
         $saldodiferenciado->tipo=$request->get('tipo');
         $saldodiferenciado->descripcion=$request->get('descripcion');
         $saldodiferenciado->monto=$request->get('monto');
-        $saldodiferenciado->update();// recordar manejar save
-  
-        Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+       $result=$saldodiferenciado->update();// recordar manejar save
+        if($result){
+          Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+          }else{
+          Alert::error('opss!!','La deuda no se actualizo correctamente');
+          }
 
       return Redirect::to("/saldodiferenciado");
 

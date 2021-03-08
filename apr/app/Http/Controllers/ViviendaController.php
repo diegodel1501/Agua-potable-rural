@@ -49,17 +49,21 @@ class ViviendaController extends Controller
         ->groupBy('numeromedidor')
         ->count();
         if($aux > 0){ 
-            return "esta es la vista de error parcial";
+            Alert::error('Opps!!!','el numero de medidor ya existe');
         }else{
              $vivienda = new Vivienda;
              $vivienda->idsubsidio=$request->get('idsubsidio');
              $vivienda->direccion=$request->get('direccion');
              $vivienda->numeromedidor=$request->get('numeromedidor');
              $vivienda->estado='activo';
-             $vivienda->save();// recordar manejar save
+            $result= $vivienda->save();// recordar manejar save
+             if($result){
+                Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
+      
+              }else{
+                Alert::error('Oops','Problemas al guardar la vivienda');
+              }
         }
-        Alert::success('Buen Trabajo','se han registrado los datos exitosamente');
-
         return Redirect::to("/vivienda");
     }//para guardar un objeto en la bd
    
@@ -70,6 +74,10 @@ class ViviendaController extends Controller
     public function edit($id){
          $vivienda =vivienda::findOrFail($id);
          $subsidios=  DB::table('subsidio')->where('estado','=','activo')->get();
+         if($subsidios==NULL){
+            Alert::error('Oops','Problema al obtener subsidios');
+            return Redirect::to("/vivienda");
+         }
          return view("Administracion.vivienda.edit",["subsidios"=>$subsidios,"vivienda"=>$vivienda]);
     }//para editar 
     public function update(viviendaFormRequest $request, $id){
@@ -82,24 +90,36 @@ class ViviendaController extends Controller
         ->groupBy('numeromedidor')
         ->count();
         if($aux > 0){
-            return "esta es la vista de error parcial";
+            Alert::error('Oops','Problema con el numero de medidor de la vivienda');
+            return Redirect::to("/vivienda");
         }else{
        		 $vivienda->numeromedidor=$request->get('numeromedidor');
-       		 $vivienda->update();// recordar manejar save
+       		$result= $vivienda->update();// recordar manejar save
+               if($result){
+                Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+      
+              }else{
+                Alert::error('Oops','Problemas al actualizar la vivienda');
+              }
         }
         //fin de revivision
        
   
-        Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+       
       return Redirect::to("/vivienda");
 
     }// para actualizar
     public function destroy($id){
                     $vivienda=vivienda::findOrFail($id);
                     $vivienda->estado='inactivo';
-                    $vivienda->update();
-
-            Alert::success('Los datos han sido eliminados');
+                   $result= $vivienda->update();
+                   if($result){
+                    Alert::success('Los datos han sido eliminados');
+          
+                  }else{
+                    Alert::error('Oops','Problemas al eliminar el subsidio');
+                  }
+            
 
  			return Redirect::to("/vivienda");
 

@@ -1,44 +1,59 @@
 @extends('layouts.app')
 @section('contenido')
-<div class="row">
+
+<div class="card">
+  <div class="card-header">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-2 mb-4">
-		<h3>Listado de subsidios registrados</h3>
-		@include('Administracion.subsidio.search')
+		<h2>Listado de subsidios registrados</h2>
 	</div>	
+  </div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				@include('Administracion.subsidio.search')
+
+				<div class="table-responsive pt-2">
+					<table class="table table-striped table-condensed table-hover" id="tablasubsidio">
+						<thead>
+							<th>tipo de subsidio</th>
+							<th>descripción</th>
+							<th>porcentaje de descuento</th>
+							<th>Opciones</th>
+						</thead>
+						<tbody>
+						@foreach($subsidios as $s)
+							 <tr>
+								 <td>{{$s->tipodesubsidio}}</td>
+								 <td>{{$s->descripcion}}</td>
+								 <td>{{$s->porcentajededescuento}}</td>
+							 <td>
+								 @if($s->tipodesubsidio=="Sin subsidio")
+								 <button  disabled class=" btn boton-info"><i class="fas fa-pen"></i></button>
+						 
+								 <button  disabled class=" btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+								
+								 @else
+									<a href="{{route('subsidio.edit',$s->idsubsidio)}}"><button class=" btn boton-info"><i class="fas fa-pen"></i></button></a>
+						 
+									<a href="" data-target="#modal-delete-{{$s->idsubsidio}}" data-toggle="modal"><button class=" btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
+									@include('administracion.subsidio.modal')
+								 @endif
+		
+							 
+								 </td>
+							 </tr>
+		
+							 @endforeach
+						</tbody>
+					 </table>
+				 </div>	
+			 </div>
+		 </div>
+		
+		
+  </div>
+
 </div>
-<div class="row">
-	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<div class="table-responsive">
-			<table class="table table-striped table-condensed table-hover" id="tablasubsidio">
-				<thead>
-					<th>Id</th>
-					<th>tipo de subsidio</th>
-					<th>descripción</th>
-					<th>porcentaje de descuento</th>
-					<th>Opciones</th>
-				</thead>
-				<tbody>
-				@foreach($subsidios as $s)
- 					<tr>
- 						<td>{{$s->idsubsidio}}</td>
- 						<td>{{$s->tipodesubsidio}}</td>
- 						<td>{{$s->descripcion}}</td>
- 						<td>{{$s->porcentajededescuento}}</td>
- 					<td>
- 						<a href="{{route('subsidio.edit',$s->idsubsidio)}}"><button class=" btn boton-info"><i class="fas fa-pen"></i></button></a>
- 				
- 							<a href="" data-target="#modal-delete-{{$s->idsubsidio}}" data-toggle="modal"><button class=" btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
- 							@include('administracion.subsidio.modal')
- 						</td>
- 					</tr>
-
- 					@endforeach
-				</tbody>
- 			</table>
- 		</div>	
- 	</div>
- </div>
-
 
  @endsection
  @push('estilos')
@@ -56,7 +71,7 @@ $( document ).ready(function() {
 //agregamos el active de la seccion
   $("#menusubsidio").addClass("active");
    $('#tablasubsidio').DataTable({
-    			  searching: false,
+    			  searching: true,
     			  paging:true,
                 language: {
                     processing: "Tratamiento en curso...",

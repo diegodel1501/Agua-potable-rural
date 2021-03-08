@@ -3,17 +3,15 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="text-center">reportes de pago comite buli oriente</h3>
+            <h3 class="text-center">estadisticas de consumo de agua comite buli oriente</h3>
         </div>
     
         <div class="card-body">
-        
             <table class="table table-striped table-condensed" id="tablavivienda">
               <thead>
                     <th>Id</th>
                     <th>Dirección</th>
                     <th>Número de medidor</th>
-                 
                     <th>Opciones</th>
                 </thead>
                 <tbody>
@@ -21,15 +19,14 @@
                     <tr>
                         <td>{{$v->idvivienda}}</td>
                         <td>{{$v->direccion}}</td>
-                        <td>{{$v->numeromedidor}}</td>
-                   
-                    <td>
-                        <a href="{{route('reporte.reportesdepago',$v->idvivienda)}}"><button class="btn btn-info">ver</button></a>
+                        <td>{{$v->numeromedidor}}</td>                    <td>
+                        <a href="{{route('reporte.estadisticasdeconsumoaa',$v->idvivienda)}}"><button class="btn btn-info"><i class="fa fa-eye fa-2x"></i></button></a>
                         </td>
                     </tr>
 
                     @endforeach
                 </tbody>
+               
             </table>
         </div>
     </div>
@@ -38,22 +35,22 @@
 @endsection
  @push('estilos')
     <link rel="stylesheet" href="{{url('adminlte/plugins/sweetalert2/sweetalert2.min.css')}}">
-    <link href="{{ asset('css/factura.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{url('adminlte/plugins/datatables/jquery.datatables.min.css')}}">
+    <link href="{{ asset('css/factura.css') }}" rel="stylesheet">
     @endpush
     @push('scripts')
-    <script src="{{url('adminlte/plugins/sweetalert2/sweetalert2@10.js')}}"></script>
          <script src="{{url('adminlte/plugins/datatables/jquery.datatables.min.js')}}"></script>
+    <script src="{{url('adminlte/plugins/sweetalert2/sweetalert2@10.js')}}"></script>
 
 <script >
 $( document ).ready(function() {
     //quitamo lo active anteriores y reponemos los neesarios
     $(".nav-link").removeClass("active");
     $(".administradorpositivoidentificador").addClass("active");
-     $("#facturacionopcionabrircerrar").removeClass("menu-open");
+    $("#facturacionopcionabrircerrar").removeClass("menu-open");
     $("#administracionopcionabrircerrar").removeClass("menu-open");
 //agregamos el active de la seccion
-  $("#menureportesdepago").addClass("active");
+  $("#menuestadisticasdeconsumo").addClass("active");
    $('#tablavivienda').DataTable({
                   searching: true,
                   paging:true,
@@ -79,8 +76,8 @@ $( document ).ready(function() {
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 200,
-                lengthMenu: [ [3,7,-1], [3,7,"todos"] ],
+                scrollY: 250,
+                lengthMenu: [ [5,10,15,20,-1], [5,10,15,20,"todos"] ],
             });
 });
 </script>

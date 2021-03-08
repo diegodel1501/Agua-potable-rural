@@ -3,14 +3,32 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="text-center">Estado de cuentas comite buli oriente</h3>
-                 <h4 class="text-center">Vivienda: {{$vivienda->direccion}}</h4>
+            <h3 class="text-center">Historial de consumo comite buli oriente</h3>
         </div>
     
         <div class="card-body">
             <table class="table table-striped table-condensed" id="tablavivienda">
-             
-               
+              <thead>
+                    <th>Id</th>
+                    <th>Dirección</th>
+                    <th>Número de medidor</th>
+                 
+                    <th>Opciones</th>
+                </thead>
+                <tbody>
+                @foreach($viviendas as $v)
+                    <tr>
+                        <td>{{$v->idvivienda}}</td>
+                        <td>{{$v->direccion}}</td>
+                        <td>{{$v->numeromedidor}}</td>
+                     
+                    <td>
+                        <a href="{{route('reporte.Historialdeconsumoaa',$v->idvivienda)}}"><button class="btn btn-info"><i class="fa fa-eye fa-2x"></i></button></a>
+                        </td>
+                    </tr>
+
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
@@ -34,7 +52,7 @@ $( document ).ready(function() {
      $("#facturacionopcionabrircerrar").removeClass("menu-open");
     $("#administracionopcionabrircerrar").removeClass("menu-open");
 //agregamos el active de la seccion
-  $("#menuestadodecuenta").addClass("active");
+  $("#menuhistorialdeconsumo").addClass("active");
    $('#tablavivienda').DataTable({
                   searching: true,
                   paging:true,
@@ -60,8 +78,8 @@ $( document ).ready(function() {
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 200,
-                lengthMenu: [ [3,7,-1], [3,7,"todos"] ],
+                scrollY: 250,
+                lengthMenu: [ [5,10,15,20,-1], [5,10,15,20,"todos"] ],
             });
 });
 </script>

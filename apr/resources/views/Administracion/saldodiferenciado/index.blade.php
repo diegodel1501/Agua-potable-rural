@@ -1,14 +1,19 @@
 @extends('layouts.app')
 @section('contenido')
+
+<div class="card text-left">
+	<div class="card-header">
+		<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2>Listado de saldos registrados</h2>
+			
+		</div>	
+	</div>
+  <div class="card-body">
+		
 <div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Listado de saldos registrados</h3>
 		@include('Administracion.saldodiferenciado.search')
-	</div>	
-</div>
-<div class="row mt-2 ml-1">
-	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<div class="table-responsive">
+		<div class="table-responsive pt-1">
 			<table class="table table-striped table-condensed table-hover" id="tablasaldo">
 				<thead>
 					<th>Id</th>
@@ -42,6 +47,8 @@
  </div>
 
 
+  </div>
+</div>
  @endsection
  @push('estilos')
   <link rel="stylesheet" href="{{url('adminlte/plugins/datatables/jquery.datatables.min.css')}}">
@@ -58,7 +65,7 @@ $( document ).ready(function() {
 //agregamos el active de la seccion
   $("#menusaldo").addClass("active");
    $('#tablasaldo').DataTable({
-    			  searching: false,
+    			  searching: true,
     			  paging:true,
                 language: {
                     processing: "Tratamiento en curso...",

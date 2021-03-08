@@ -33,14 +33,34 @@ class SubsidioController extends Controller
     }// para crear un objeto del modelo
 
     public function store(subsidioFormRequest $request){
+      $porcentaje=subsidio::where("porcentajededescuento",$request->get('porcentajededescuento'))->where("estado","activo")->get()->count();
+      $descripcion=subsidio::where("descripcion",$request->get('descripcion'))->where("estado","activo")->get()->count();
+      $tipo=subsidio::where("tipodesubsidio",$request->get('tipodesubsidio'))->where("estado","activo")->get()->count();
+      if($porcentaje==0 && $descripcion==0 && $tipo==0){
         $subsidio = new subsidio;
         $subsidio->porcentajededescuento=$request->get('porcentajededescuento');
         $subsidio->descripcion=$request->get('descripcion');
         $subsidio->tipodesubsidio=$request->get('tipodesubsidio');
         $subsidio->estado='activo';
-        $subsidio->save();// recordar manejar save
+        $result=$subsidio->save();// recordar manejar save
+        if($result){
+          Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
 
-        Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
+        }else{
+          Alert::error('Oops','Problemas al guardar el subsidio');
+        }
+      
+    }
+    if($tipo>0){
+       
+        return Redirect::back()->withErrors(["ya existe un tipo de subsidio asi"]);
+      }
+    if($descripcion>0){
+      return Redirect::back()->withErrors(["ya existe una descripcion asi"]);
+    }
+    if($porcentaje>0){
+      return Redirect::back()->withErrors(["ya existe un porcentaje asi"]);
+    }
 
         return Redirect::to("/subsidio");
     }//para guardar un objeto en la bd
@@ -54,23 +74,47 @@ class SubsidioController extends Controller
          return view("Administracion.subsidio.edit",["subsidio"=>$subsidio]);
     }//para editar 
     public function update(subsidioFormRequest $request, $id){
+      $porcentaje=subsidio::where("porcentajededescuento",$request->get('porcentajededescuento'))->where("estado","activo")->get()->count();
+      $descripcion=subsidio::where("descripcion",$request->get('descripcion'))->where("estado","activo")->get()->count();
+      $tipo=subsidio::where("tipodesubsidio",$request->get('tipodesubsidio'))->where("estado","activo")->get()->count();
+      if($porcentaje==0 && $descripcion==0 && $tipo==0){
         $subsidio =subsidio::findOrFail($id);
         $subsidio->tipodesubsidio=$request->get('tipodesubsidio');
         $subsidio->descripcion=$request->get('descripcion');
         $subsidio->porcentajededescuento=$request->get('porcentajededescuento');
-        $subsidio->update();// recordar manejar save
-      
-        Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+        $result=$subsidio->update();// recordar manejar save
 
+        if($result){
+         Alert::success('Buen Trabajo','Los datos se han actualizado exitosamente');
+
+        }else{
+          Alert::error('Oops','Problemas al actualizar el subsidio');
+        }        
+
+      }
+      if($tipo>0){
+         
+          return Redirect::back()->withErrors(["ya existe un tipo de subsidio asi"]);
+        }
+      if($descripcion>0){
+        return Redirect::back()->withErrors(["ya existe una descripcion asi"]);
+      }
+      if($porcentaje>0){
+        return Redirect::back()->withErrors(["ya existe un porcentaje asi"]);
+      }
       return Redirect::to("/subsidio");
 
     }// para actualizar
     public function destroy($id){
                     $subsidio=subsidio::findOrFail($id);
                     $subsidio->estado='inactivo';
-                    $subsidio->update();
-      
-      Alert::success('Los datos han sido eliminados');
+                    $result=$subsidio->update();
+                    if($result){
+                       Alert::success('Los datos han sido eliminados');
+                      
+                    }else{
+                      Alert::error('Oops','Problemas al eliminar el subsidio');
+                    }
 
  			return Redirect::to("/subsidio");
 

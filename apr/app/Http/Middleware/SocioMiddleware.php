@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EncargadoMiddleware
+class SocioMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class EncargadoMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->Rol == 'encargado' )
+        if (Auth::user()->Rol == 'socio' )
             return $next($request);
 
         return redirect('/home');

@@ -3,30 +3,50 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="text-center">pagar factura de la vivienda: {{$vivienda->direccion}}</h3>
+            <h3 class="text-center">pagar factura por: ${{$cupondepago->idvalor}}, fecha{{$cupondepago->fecha}}, de la vivienda: {{$vivienda->direccion}}</h3>
         </div>
     
         <div class="card-body">
         	<div class="form-group text-center">
-        		<label>El saldo a pagar, facturado el: {{$factura->fecha}}, es de: ${{$factura->totalcobrado}}, del cual registra una deuda de: ${{$deuda}}</label>
+        		<label>El saldo adeudado en esta factura haciende a:{{$factura->totalcobrado}} y posee ademas un(a) multa/haber de: ${{$deuda}}</label>
         	</div>
         	
-        	<form action="{{route('factura.ingresarpago')}}" method="post">
-        		@csrf
-        		<input type="hidden" name="factura" value="{{$factura->idfactura}}">
-                <input type="hidden" name="vivienda" value="{{$factura->idvivienda}}">
-                <input type="hidden" name="totalcobrado" value="{{$deuda}}">
-        		<div class="form-group ">
-        				<label> ingrese el monto que desea abonar.</label>
-        				<input  class="form-control md-6" type="number" name="montopagado" placeholder="${{$deuda}}" required>
-        				
-        		</div>
-        		<div class="form-group text-center"> 
-        			<button type="submit" class="btn btn-success">pagar</button>
-        		</div>
-        	
-        		
-        	</form>
+            <div class="form-group">
+                <div class="lg-3">
+                    <a href="{{ route('factura.ingresarpago', $factura->idfactura) }}"><button class="btn btn-success form-control ">pagar factura completa</button></a>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="lg-3">
+                    <form class="form-group" action="{{Route("factura.abonar")}}" method="post">
+                        @csrf
+                        <input type="hidden" name="idvivienda" value="{{$factura->idvivienda}}">
+                        <input type="hidden" name="idfactura" value="{{$factura->idfactura}}">
+                        <input type="number" required name="monto" class="form-control" placeholder="$monto a abonar" max="{{$factura->totalcobrado}}" min="1">
+                        <button type="submit" class="btn btn-warning form-control ">abonar a la cuenta</button>
+                    </form>
+                   
+                </div>
+            </div>
+            <div class="form-group">
+                @if($deuda>0)
+                <div class="lg-3">
+                    <form class="form-group" action="{{Route("factura.deuda")}}" method="post">
+                        @csrf
+                        <input type="hidden" name="idvivienda" value="{{$factura->idvivienda}}">
+                        <input type="number"  required name="monto" class="form-control" placeholder="$monto a abonar en la multa" max="{{$deuda}}" min="1">
+                        <button type="submit" class="btn btn-success form-control ">pagar multa</button>
+                    </form>
+                </div>
+                @endif
+            </div>
+            <div class="form-group">
+                @if($deuda<0)
+                <div class="lg-3">
+                    <a href="{{ route('factura.unir', [$factura->idvivienda , $factura->idfactura]) }}"><button class="btn btn-success form-control ">unir saldo a favor a factura</button></a>
+                </div>
+                @endif
+            </div>
         </div>
     </div>
 

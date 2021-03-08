@@ -70,7 +70,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('/saldodiferenciado/{id}', [SaldodiferenciadoController::class, 'destroy'])->name('saldodiferenciado.destroy');
     Route::get('/saldodiferenciado/{id}/edit', [SaldodiferenciadoController::class, 'edit'])->name('saldodiferenciado.edit');
     Route::put('/saldodiferenciado/{id}', [SaldodiferenciadoController::class, 'update'])->name('saldodiferenciado.update');
-
+    //rutas de medicion
+    Route::get('/medicion', [MedicionController::class, 'index'])->name('medicion.index');
+    Route::get('/medicion/create', [MedicionController::class, 'create'])->name('medicion.create');
+    Route::post('/medicion', [MedicionController::class, 'store'])->name('medicion.store');
+    Route::delete('/medicion/{id}', [MedicionController::class, 'destroy'])->name('medicion.destroy');
+    Route::get('/medicion/{id}/edit', [MedicionController::class, 'edit'])->name('medicion.edit');
+    Route::put('/medicion/{id}', [MedicionController::class, 'update'])->name('medicion.update');
 
     // rutas de cupon de pago
 
@@ -84,25 +90,36 @@ Route::group(['middleware' => 'admin'], function () {
     //rutas de pago y facturacion
     Route::get('/facturacion', [FacturaController::class, 'index'])->name('factura.index');
     Route::get('/facturacion/pagar/{id}', [FacturaController::class, 'pagar'])->name('factura.pagar');
-    Route::post('/facturacion/pago', [FacturaController::class, 'ingresarpago'])->name('factura.ingresarpago');
-    // rutas de reportes
+    Route::get('/facturacion/pago/{id}', [FacturaController::class, 'ingresarpago'])->name('factura.ingresarpago');
+    Route::post('/facturacion/abonar', [FacturaController::class, 'abonar'])->name('factura.abonar');
+    Route::post('/facturacion/deuda', [FacturaController::class, 'deuda'])->name('factura.deuda');
+    Route::get('/facturacion/unir/{idvivienda}/{idfactura}', [FacturaController::class, 'unir'])->name('factura.unir');
+    
+    // reportes 
     Route::get('/estadodecuentas', [ReportesController::class, 'estadodecuentasgeneral'])->name('reporte.estadodecuentas');
-    Route::get('/Historialdeconsumos', [ReportesController::class, 'historialdeconsumosgeneral'])->name('reporte.Historialdeconsumos');
-    Route::get('/estadisticasdeconsumos', [ReportesController::class, 'estadisticasdeconsumogeneral'])->name('reporte.estadisticasdeconsumos');
-    Route::get('/reportesdepagos', [ReportesController::class, 'reportesdepagogeneral'])->name('reporte.reportesdepagos');
-
-    Route::get('/estadodecuenta/{id}', [ReportesController::class, 'estadodecuentasparticular'])->name('reporte.estadodecuenta');
-    Route::get('/Historialdeconsumo/{id}', [ReportesController::class, 'historialdeconsumosparticular'])->name('reporte.Historialdeconsumo');
-    Route::get('/estadisticasdeconsumo/{id}', [ReportesController::class, 'estadisticasdeconsumoparticular'])->name('reporte.estadisticasdeconsumo');
-    Route::get('/reportesdepago/{id}', [ReportesController::class, 'reportesdepagoparticular'])->name('reporte.reportesdepago');
+   Route::get('/Historialdeconsumos', [ReportesController::class, 'historialdeconsumosgeneral'])->name('reporte.Historialdeconsumos');
+   Route::get('/estadisticasdeconsumos', [ReportesController::class, 'estadisticasdeconsumogeneral'])->name('reporte.estadisticasdeconsumos');
+   Route::get('/reportesdepagos', [ReportesController::class, 'reportesdepagogeneral'])->name('reporte.reportesdepagos');
+   Route::get('/estadodecuenta/{id}', [ReportesController::class, 'estadodecuentasparticularaa'])->name('reporte.estadodecuentaaa');
+   Route::get('/Historialdeconsumo/{id}', [ReportesController::class, 'historialdeconsumosparticularaa'])->name('reporte.Historialdeconsumoaa');
+   Route::get('/estadisticasdeconsumo/{id}', [ReportesController::class, 'estadisticasdeconsumoparticularaa'])->name('reporte.estadisticasdeconsumoaa');
+   Route::get('/reportesdepago/{id}', [ReportesController::class, 'reportesdepagoparticularaa'])->name('reporte.reportesdepagoaa');
 });
 
 Route::group(['middleware' => 'encargado'], function () {
     // rutas de medicion
-    Route::get('/medicion', [MedicionController::class, 'index'])->name('medicion.index');
-    Route::get('/medicion/create', [MedicionController::class, 'create'])->name('medicion.create');
+    Route::get('/medicionEncargado', [MedicionController::class, 'indexencargado'])->name('medicion.indexencargado');
     Route::post('/medicion', [MedicionController::class, 'store'])->name('medicion.store');
-    Route::delete('/medicion/{id}', [MedicionController::class, 'destroy'])->name('medicion.destroy');
-    Route::get('/medicion/{id}/edit', [MedicionController::class, 'edit'])->name('medicion.edit');
+    Route::get('/list',[MedicionController::class,'registros'])->name('medicion.list'); 
     Route::put('/medicion/{id}', [MedicionController::class, 'update'])->name('medicion.update');
+    Route::get('/medicion/{id}/edit', [MedicionController::class, 'edit'])->name('medicion.edit');
+
+});
+Route::group(['middleware' => 'socio'], function () {
+   // rutas de reportes
+   
+   Route::get('/estadodecuenta', [ReportesController::class, 'estadodecuentasparticular'])->name('reporte.estadodecuenta');
+   Route::get('/Historialdeconsumo', [ReportesController::class, 'historialdeconsumosparticular'])->name('reporte.Historialdeconsumo');
+   Route::get('/estadisticasdeconsumo', [ReportesController::class, 'estadisticasdeconsumoparticular'])->name('reporte.estadisticasdeconsumo');
+   Route::get('/reportesdepago', [ReportesController::class, 'reportesdepagoparticular'])->name('reporte.reportesdepago');
 });

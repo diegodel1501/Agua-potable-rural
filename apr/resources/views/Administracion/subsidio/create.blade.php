@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 				<label for="porcentajededescuento">porcentaje de descuento</label>
-				<input type="number" name="porcentajededescuento" class="form-control" required value="{{old('porcentajededescuento')}}">
+				<input type="number" name="porcentajededescuento" max="100" min="1" class="form-control" required value="{{old('porcentajededescuento')}}">
 			</div>
 		
 			<div class="form-group">

@@ -4,28 +4,12 @@
     <div class="card">
         <div class="card-header">
             <h3 class="text-center">estadisticas de consumo de agua comite buli oriente</h3>
+            <h4 class="text-center">Vivienda: {{$vivienda->direccion}}</h4>
         </div>
     
         <div class="card-body">
             <table class="table table-striped table-condensed" id="tablavivienda">
-              <thead>
-                    <th>Id</th>
-                    <th>Dirección</th>
-                    <th>Número de medidor</th>
-                    <th>Opciones</th>
-                </thead>
-                <tbody>
-                @foreach($viviendas as $v)
-                    <tr>
-                        <td>{{$v->idvivienda}}</td>
-                        <td>{{$v->direccion}}</td>
-                        <td>{{$v->numeromedidor}}</td>                    <td>
-                        <a href="{{route('reporte.estadisticasdeconsumo',$v->idvivienda)}}"><button class="btn btn-info">ver</button></a>
-                        </td>
-                    </tr>
-
-                    @endforeach
-                </tbody>
+             
                
             </table>
         </div>
@@ -76,8 +60,8 @@ $( document ).ready(function() {
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 200,
-                lengthMenu: [ [3,7,-1], [3,7,"todos"] ],
+                scrollY: 250,
+                lengthMenu: [ [5,10,15,20,-1], [5,10,15,20,"todos"] ],
             });
 });
 </script>

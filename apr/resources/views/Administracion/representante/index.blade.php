@@ -1,15 +1,20 @@
 @extends('layouts.app')
 @section('contenido')
-<div class="row ml-1">
+
+<div class="card ">
+	<div class="card-header">
+		<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2 class=" ">Listado de socios registrados</h2>
+		</div>	
+	</div>
+  <div class="card-body">
+
+		<div class="clearfix"></div>
+<div class="row">
 	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Listado de socios registrados</h3>
 		@include('Administracion.representante.search')
-		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-	</div>	
-</div>
-<div class="row mt-2">
-	<div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<div class="table-responsive">
+
+		<div class="table-responsive pt-2">
 			<table class="table table-striped table-condensed table-hover" id="tablarepresentante">
 				<thead>
 					<th>Id</th>
@@ -29,11 +34,14 @@
  						<td>{{$r->email}}</td>
  						<td>{{$r->telefono}}</td>
  						<td>{{$r->direccion}}</td>
- 					<td>
- 						<a href="{{route('representante.edit',$r->idrepresentante)}}"><button class=" btn boton-info"><i class="fas fa-pen"></i></button></a>
+ 						<td style="box-sizing:inherit ">
+						
+							<a href="{{route('representante.edit',$r->idrepresentante)}}"><button class=" btn boton-info"><i class="fas fa-pen"></i></button></a>
  				
- 							<a href="" data-target="#modal-delete-{{$r->idrepresentante}}" data-toggle="modal"><button class=" btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
- 							@include('administracion.representante.modal')
+							<a href="" data-target="#modal-delete-{{$r->idrepresentante}}" data-toggle="modal"><button class=" btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
+							@include('administracion.representante.modal')
+					
+ 						
  						</td>
  					</tr>
 
@@ -44,14 +52,19 @@
  	</div>
  </div>
 
+  </div>
+</div>
  @endsection
  @push('estilos')
   <link rel="stylesheet" href="{{url('adminlte/plugins/datatables/jquery.datatables.min.css')}}">
 @endpush
     @push('scripts')
-     <script src="{{url('adminlte/plugins/datatables/jquery.datatables.min.js')}}"></script>
+	<script src="{{url('adminlte/plugins/datatables/jquery.datatables.min.js')}}"></script>
+
+   
 <script >
 $( document ).ready(function() {
+	
 	//quitamo lo active anteriores y reponemos los neesarios
 	$(".nav-link").removeClass("active");
 	$(".administradorpositivoidentificador").addClass("active");
@@ -60,7 +73,7 @@ $( document ).ready(function() {
 //agregamos el active de la seccion
   $("#menurepresentante").addClass("active");
    $('#tablarepresentante').DataTable({
-    			  searching: false,
+    			  searching: true,
     			  paging:true,
                 language: {
                     processing: "Tratamiento en curso...",

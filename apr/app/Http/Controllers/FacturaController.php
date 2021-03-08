@@ -9,7 +9,7 @@ use App\Models\Factura;
 use App\Models\Saldodiferenciado;
 use App\Http\Requests\viviendaFormRequest;
 use DB;
-
+use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\VarDumper\VarDumper;
 
 class FacturaController extends Controller
@@ -26,45 +26,30 @@ class FacturaController extends Controller
             ->get();
             $datoscondeuda[]=count($datos);
                  for ($d=0; $d <count($datos) ; $d++) { 
-                    $deuda=DB::table('saldodiferenciado')
-                    ->select('monto','tipo')
+                    $haber=DB::table('saldodiferenciado')
                     ->where('idvivienda','=',$datos[$d]->idvivienda)
                     ->where('estado','=','activo')
-                    ->first();
-                         if($deuda){
-                            if($deuda->tipo=="haber"){
-                                         $datoscondeuda[$d]=array(
-                                        'idfactura'=>$datos[$d]->idfactura,
-                                        'direccion'=>$datos[$d]->direccion,
-                                        'numeromedidor'=>$datos[$d]->numeromedidor,
-                                        'tipodesubsidio'=>$datos[$d]->tipodesubsidio,
-                                        'totalcobrado'=>$datos[$d]->totalcobrado,
-                                        'deuda'=>(int)$datos[$d]->totalcobrado-(int)$deuda->monto,
-                                        'fecha'=>$datos[$d]->fecha
-                                                  ); 
-                            }else{
-                                       $datoscondeuda[$d]=array(
-                                        'idfactura'=>$datos[$d]->idfactura,
-                                        'direccion'=>$datos[$d]->direccion,
-                                        'numeromedidor'=>$datos[$d]->numeromedidor,
-                                        'tipodesubsidio'=>$datos[$d]->tipodesubsidio,
-                                        'totalcobrado'=>$datos[$d]->totalcobrado,
-                                        'deuda'=>$deuda->monto,
-                                        'fecha'=>$datos[$d]->fecha
-                                                  ); 
-                            } 
+                    ->where('tipo','haber')
+                    ->sum('monto');
+                    $deber=DB::table('saldodiferenciado')
+                    ->where('idvivienda','=',$datos[$d]->idvivienda)
+                    ->where('estado','=','activo')
+                    ->where('tipo','deber')
+                    ->sum('monto');
+
+                    $deuda=$deber-$haber;
+                    
+
+                    $datoscondeuda[$d]=array(
+                        'idfactura'=>$datos[$d]->idfactura,
+                        'direccion'=>$datos[$d]->direccion,
+                        'numeromedidor'=>$datos[$d]->numeromedidor,
+                        'tipodesubsidio'=>$datos[$d]->tipodesubsidio,
+                        'totalcobrado'=>$datos[$d]->totalcobrado,
+                        'deuda'=>$deuda,
+                        'fecha'=>$datos[$d]->fecha);
                            
-                        }else{
-                                        $datoscondeuda[$d]=array(
-                                        'idfactura'=>$datos[$d]->idfactura,
-                                        'direccion'=>$datos[$d]->direccion,
-                                        'numeromedidor'=>$datos[$d]->numeromedidor,
-                                        'tipodesubsidio'=>$datos[$d]->tipodesubsidio,
-                                        'totalcobrado'=>$datos[$d]->totalcobrado,
-                                        'deuda'=>$datos[$d]->totalcobrado,
-                                        'fecha'=>$datos[$d]->fecha
-                                                  ); 
-                        }
+                        
                      
                     
                  }
@@ -72,105 +57,164 @@ class FacturaController extends Controller
         
     }
     public function pagar($idfactura){
+        // pagar con 3 opciones 
+
             $factura=DB::table('factura')
             ->select('totalcobrado','fecha','idvivienda','idfactura')
             ->where('idfactura','=',$idfactura)
             ->first();
+            $cupondepago=DB::table("cupondepago")
+            ->select("*")
+            ->where("idvivienda",$factura->idvivienda)
+            ->where("fecha",$factura->fecha)
+            ->first();
+
             $vivienda=DB::table('vivienda')
             ->select('direccion')
             ->where('idvivienda','=',$factura->idvivienda)
             ->first();
-            $deuda=DB::table('saldodiferenciado')
-            ->select('monto','tipo')
+            $haber=DB::table('saldodiferenciado')
+            ->where('tipo',"haber")
+            ->where("estado","activo")
             ->where('idvivienda','=',$factura->idvivienda)
-            ->first();
-            if($deuda){
-                if($deuda->tipo=="deber"){
-                $deber=$deuda->monto;                    
-                }else{
-// si es de tipo haber signifia que es un saldo anterior a favor y no un ciclo de deudas por lo que le descontamos el saldo a la facturacion  
-                    $deber=$factura->totalcobrado-$deuda->monto;
-                }
-            }else{
-                $deber=$factura->totalcobrado;
-            }
-
-        return view('Facturacion.factura.pagarfactura',["factura"=>$factura,"vivienda"=>$vivienda,"deuda"=>$deber]);
+            ->sum("monto");
+            $deber=DB::table('saldodiferenciado')
+            ->where("estado","activo")
+            ->where('tipo',"deber")
+            ->where('idvivienda','=',$factura->idvivienda)
+            ->sum("monto");
+            $deuda=$deber-$haber;
+        return view('Facturacion.factura.pagarfactura',["factura"=>$factura,"vivienda"=>$vivienda,"deuda"=>$deuda,"cupondepago"=>$cupondepago]);
 
     }
-    public function ingresarpago( Request $request){
-        // crear pago y registrar saldo a favor o en contra ademas, quitar la factura de la lista de inpagas
-        //montopagado,vivienda,factura
+    public function ingresarpago( $idfactura){
+     
+                    $factura=Factura::
+                     where('idfactura','=',$idfactura)
+                     ->first();
+
                 $pago= new Pago;
-                $pago->idfactura=$request->get('factura');
+                $pago->idfactura=$idfactura;
                 $pago->fecha=date('Y-m-d');
-                $pago->valorpagado=$request->get('montopagado');
+                $pago->valorpagado=$factura->totalCobrado;
                 $pago->estado='activo';
-                $factura=Factura::findOrFail($request->get('factura'));
-                $saldodiferenciado=DB::table('saldodiferenciado')
-                ->select('idsaldodiferenciado')
-                ->where('idvivienda','=',$request->get('vivienda'))
-                ->first();
-                if($saldodiferenciado){
-                 $saldodiferenciado=Saldodiferenciado::find($saldodiferenciado->idsaldodiferenciado);
+                
+                if($pago->save()){
+                    Alert::success("pago ingresado satisfactoriamente");
+                }else{
+                    Alert::error("pago no ingresado.");
                 }
-                if((int)$request->get('montopagado')==(int)$request->get('totalcobrado')){
-                    // totalmente pagado
-                    $factura->estadodepago='pagado';
-                    $factura->update();
-                    // quitar saldodiferenciado si es deber
-                    if($saldodiferenciado->tipo=="deber"){
-                        $saldodiferenciado->tipo=="haber";
-                        $saldodiferenciado->monto='0';
-                        $saldodiferenciado->update();
-                    }// si es haber no se lo reseteamos, el total cobrado implica la deuda actual de la factura por lo que solo se podria pagar en caso de que aun deba, de tener dindero a su favor se vera en a siguiente factura
+                // ponerle pagado a la factura
+
+                $factura->estadodepago="pagado";
+                if($factura->update()){
+                    Alert::success("factura pagada correctamente");
 
                 }else{
-                    if((int)$request->get('montopagado')<(int)$request->get('totalcobrado')){
-                        //deber 
-                        $factura->estadodepago='parcialmente';
-                        $factura->update();
-                          if($saldodiferenciado){
-                                $saldodiferenciado->descripcion='deuda fecha:'.date('Y-m-d').'factura '.$factura->idfactura;
-                                $saldodiferenciado->monto=(int)$request->get('totalcobrado')-(int)$request->get('montopagado');
-                                $saldodiferenciado->tipo='deber';
-                                $saldodiferenciado->estado='activo';
-                                $saldodiferenciado->update();
-                            }else{
-                                $saldodiferenciado= new Saldodiferenciado;
-                                $saldodiferenciado->descripcion='deuda fecha:'.date('Y-m-d').'factura '.$factura->idfactura;
-                                $saldodiferenciado->monto=(int)$request->get('totalcobrado')-(int)$request->get('montopagado');
-                                $saldodiferenciado->tipo='deber';
-                                $saldodiferenciado->estado='activo';
-                                $saldodiferenciado->idvivienda=$request->get('vivienda');
-                                $saldodiferenciado->save();
-                            }
-                    }else{
-                        //haber
-                          $factura->estadodepago='pagado';
-                          $factura->update();
-
-                             if($saldodiferenciado){
-                                $saldodiferenciado->descripcion='haber fecha:'.date('Y-m-d').'factura '.$factura->idfactura;
-                                $saldodiferenciado->monto=(int)$request->get('montopagado')-(int)$request->get('totalcobrado');
-                                $saldodiferenciado->tipo='haber';
-                                $saldodiferenciado->estado='activo';
-                                $saldodiferenciado->idvivienda=$request->get('vivienda');
-                                $saldodiferenciado->update();
-                            }else{
-                                $saldodiferenciado= new Saldodiferenciado;
-                                $saldodiferenciado->descripcion='haber fecha:'.date('Y-m-d').'factura '.$factura->idfactura;
-                                $saldodiferenciado->monto=(int)$request->get('montopagado')-(int)$request->get('totalcobrado');
-                                $saldodiferenciado->tipo='haber';
-                                $saldodiferenciado->estado='activo';
-                                $saldodiferenciado->idvivienda=$request->get('vivienda');
-                                $saldodiferenciado->save();
-                            }
-                    }
+                    Alert::error("error al cambiar estado de pago de la factura");
                 }
-                $pago->save();
+                
+             
                 return Redirect::to("/facturacion");
 
 
     }
+    public function abonar(Request $request){
+        $factura=Factura::
+         where('idfactura','=',$request->idfactura)
+         ->first();
+
+    $pago= new Pago;
+    $pago->idfactura=$request->idfactura;
+    $pago->fecha=date('Y-m-d');
+    $pago->valorpagado=$request->monto;
+    $pago->estado='activo';
+    if($pago->save()){
+        Alert::success("pago ingresado satisfactoriamente");
+    }else{
+        Alert::error("pago no ingresado.");
+    }
+    // ponerle parcialmente a la factura
+
+    $factura->estadodepago="parcialmente";
+    $factura->totalcobrado=$factura->totalCobrado-$request->monto;
+    if($factura->update()){
+        Alert::success("factura pagada correctamente");
+
+    }else{
+        Alert::error("error al cambiar estado de pago de la factura");
+    }
+    
+ 
+    return Redirect::to("/facturacion");
+
+    }
+
+    public function deuda(Request $request){
+
+    $pago= new Pago;
+    $pago->idfactura=127;
+    $pago->fecha=date('Y-m-d');
+    $pago->valorpagado=$request->monto;
+    $pago->estado='activo';
+    if($pago->save()){
+        Alert::success("pago ingresado satisfactoriamente");
+    }else{
+        Alert::error("pago no ingresado.");
+    }
+    // quitar deudas anteriores y crear una nueva con lo que queda si es que queda
+
+    $saldos=Saldodiferenciado::where('idvivienda',$request->idvivienda)->where("estado","activo")->get();
+    $haber=Saldodiferenciado::where('idvivienda',$request->idvivienda)->where("estado","activo")->where("tipo","haber")->sum('monto');
+    $deber=Saldodiferenciado::where('idvivienda',$request->idvivienda)->where("estado","activo")->where("tipo","deber")->sum('monto');
+    $deuda=$deber-$haber;
+    foreach ($saldos as $s ) {
+        $s->estado="inactivo";
+        if(!$s->update()){
+            Alert::error("error al actualizar deuda de la vivienda id: ".$request->idvivienda);
+            return Redirect::to("/facturacion");
+        }
+    }
+    $totalnuevo=$deuda-$request->monto;
+    $saldodiferenciado = new Saldodiferenciado;
+    $saldodiferenciado->idvivienda=$request->idvivienda;
+    $saldodiferenciado->tipo=$totalnuevo>0? "deber" : "haber" ;
+    $saldodiferenciado->descripcion="nueva deuda por abono a deuda anterior."."fecha: ".date("Y-m-d" ,strtotime("now"));
+    $saldodiferenciado->monto=$request->get('monto');
+    $saldodiferenciado->estado='activo';
+    $result= $saldodiferenciado->save();// recordar manejar save
+    if($result){
+    Alert::success('Buen Trabajo','Los datos se han registrado exitosamente');
+    }else{
+    Alert::error('opss!!','La deuda no se registro correctamente');
+    }
+    return Redirect::to("/facturacion");
+    }
+    public function unir($idvivienda,$idfactura){
+        $haber=Saldodiferenciado::where('idvivienda',$idvivienda)->where("estado","activo")->where("tipo","haber")->sum('monto');
+        $deber=Saldodiferenciado::where('idvivienda',$idvivienda)->where("estado","activo")->where("tipo","deber")->sum('monto');
+        $deudaohaber=$deber-$haber;
+
+        $factura=factura::where("idfactura",$idfactura)->first();
+        $factura->totalCobrado+=$deudaohaber;
+        if(!$factura->update()){
+            Alert::error('opss!!','no se logor unir el haber a  la factura.');
+            return Redirect::to("/facturacion");
+        }else{
+            //borrar saldos diferenciados de esta vivienda.
+            $saldos=Saldodiferenciado::where('idvivienda',$idvivienda)->where("estado","activo")->get();
+            foreach ($saldos as $s ) {
+                $s->estado="inactivo";
+                if(!$s->update()){
+                    Alert::error("error al actualizar deuda de la vivienda id: ".$idvivienda);
+                    return Redirect::to("/facturacion");
+                }
+            }
+        }
+        return Redirect::to("/facturacion");
+
+    }
+
+
+    
 }

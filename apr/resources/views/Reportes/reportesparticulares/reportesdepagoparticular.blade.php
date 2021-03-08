@@ -60,8 +60,8 @@ $( document ).ready(function() {
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 200,
-                lengthMenu: [ [3,7,-1], [3,7,"todos"] ],
+                scrollY: 250,
+                lengthMenu: [ [5,10,15,20,-1], [5,10,15,20,"todos"] ],
             });
 });
 </script>

@@ -14,7 +14,7 @@
     </div>
     <div class="modal-body text-center">
      <p style="font-size: 20px">
-      ¿Desea Eliminar <strong>{{ $v->nombre }}</strong>?
+      ¿Esta seguro de modificar el valor actual ?
      </p>
      <i class="fas fa-exclamation-circle fa-5x" style="color:#17a2b8"></i>
  
