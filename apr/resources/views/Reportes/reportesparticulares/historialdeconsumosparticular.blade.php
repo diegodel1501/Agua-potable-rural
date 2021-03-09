@@ -9,7 +9,28 @@
     
         <div class="card-body">
             <table class="table table-striped table-condensed" id="tablavivienda">
-             
+                <thead>
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Total Cobrado</th>
+                        <th scope="col">Estado de Pago</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @foreach ($facturas as $index=>$factura)
+                        <td>{{$index+1}}</td>
+                        <td>{{$vivienda->direccion}}</td>
+                        <td>{{$factura->totalCobrado}}</td>
+                        <td class="{{$factura->estadodepago == 'inpago'? 'text-danger':'text-success'}}">{{$factura->estadodepago}}</td>
+
+
+                        @endforeach
+
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
