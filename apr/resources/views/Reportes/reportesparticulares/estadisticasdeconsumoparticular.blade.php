@@ -174,7 +174,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'Consumo Anual de metros cúbicos',
+                        text: 'Consumo Anual de metros cúbicos de '+$("#year").val(),
                         fontSize: 25
                     },
                     legend: {
