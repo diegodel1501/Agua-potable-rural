@@ -8,21 +8,48 @@
         </div>
     
         <div class="card-body">
-        
-            <table class="table table-striped table-condensed" id="tablavivienda">
-            
-            </table>
+            <div class="dates" style="display: block">
+                
+                <div class="elements" style="float: right">
+                        <label for="" style="margin-right: 5px">Seleccione rango de fechas </label>
+                        <input id="datepicker1" width="276" />
+                        <input id="datepicker2" width="276" />
+                        <button id="search" class="btn btn-primary"> <i class="far fa-search" style="margin-right: 5px"></i>Buscar</button>
+                </div>
+
+                <table class="table table-striped table-condensed">
+                    <tr>
+                        <th>Nº</th>
+                        <th>Fecha</th>
+                        <th>Total Cobrado</th>
+                        <th>Estado de pago</th>
+                    </tr>
+                    <tr>
+                            @foreach ($facturas as $index=>$factura)
+                                <td>{{$index+1}}</td>
+                                <td>{{$factura->fecha}}</td>
+                                <td>{{'$ '.$factura->totalCobrado}}</td>
+                                <th class=" text-bold {{$factura->estadodepago=='pagado'?'text-green':'text-red'}}">{{$factura->estadodepago}}</th>
+                            @endforeach
+                    </tr>
+                </table>
+
+            </div>
+
         </div>
     </div>
 
 
 @endsection
  @push('estilos')
-    <link rel="stylesheet" href="{{url('adminlte/plugins/sweetalert2/sweetalert2.min.css')}}">
+     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+      <link rel="stylesheet" href="{{url('adminlte/plugins/sweetalert2/sweetalert2.min.css')}}">
     <link href="{{ asset('css/factura.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{url('adminlte/plugins/datatables/jquery.datatables.min.css')}}">
     @endpush
     @push('scripts')
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
     <script src="{{url('adminlte/plugins/sweetalert2/sweetalert2@10.js')}}"></script>
          <script src="{{url('adminlte/plugins/datatables/jquery.datatables.min.js')}}"></script>
 
@@ -64,5 +91,12 @@ $( document ).ready(function() {
                 lengthMenu: [ [5,10,15,20,-1], [5,10,15,20,"todos"] ],
             });
 });
+$(function () {
+$("#datepicker1").datepicker();
+});
+$(function () {
+$("#datepicker2").datepicker();
+});
+
 </script>
 @endpush
