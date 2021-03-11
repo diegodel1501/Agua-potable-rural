@@ -7,6 +7,7 @@ use App\Models\Vivienda;
 use App\Models\Factura;
 use App\Models\representante;
 use App\Models\Cupondepago;
+use App\Models\Medicion;
 use DB;
 use Symfony\Component\VarDumper\VarDumper;
 
@@ -79,11 +80,11 @@ class ReportesController extends Controller{
       return view("Reportes.reportesparticulares.historialdeconsumosparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda]);
   }
     public function estadisticasdeconsumoparticularaa($idvivienda){
-     
+      $consumos=Medicion::where('idvivienda',$idvivienda)->get();
       $facturas=Factura::where('estado','activo')->where('idvivienda',$idvivienda)->get();
       $vivienda=Vivienda::where('idvivienda',$idvivienda)->first();
 
-      return view("Reportes.reportesparticulares.estadisticasdeconsumoparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda]);
+      return view("Reportes.reportesparticulares.estadisticasdeconsumoparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda,"consumos"=>$consumos]);
   }
      public function reportesdepagoparticularaa($idvivienda){
       
