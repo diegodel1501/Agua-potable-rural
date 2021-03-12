@@ -13,8 +13,8 @@
                     <tr>
                         <th scope="col">N°</th>
                         <th scope="col">Dirección</th>
-                        <th scope="col">Total Cobrado</th>
-                        <th scope="col">Estado de Pago</th>
+                        <th scope="col">metros consumidos</th>
+                        <th scope="col">Fecha</th>
                         
                     </tr>
                 </thead>
@@ -23,8 +23,8 @@
                         @foreach ($facturas as $index=>$factura)
                         <td>{{$index+1}}</td>
                         <td>{{$vivienda->direccion}}</td>
-                        <td>{{$factura->totalCobrado}}</td>
-                        <td class="{{$factura->estadodepago == 'inpago'? 'text-danger':'text-success'}}">{{$factura->estadodepago}}</td>
+                        <td>{{$factura->totalCobrado / $valorM3->precio}}</td>
+                        <td class="{{$factura->fecha? 'text-success':'text-alert'}}">{{$factura->fecha}}</td>
 
 
                         @endforeach

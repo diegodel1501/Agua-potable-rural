@@ -100,6 +100,7 @@ Route::group(['middleware' => 'admin'], function () {
    Route::get('/Historialdeconsumos', [ReportesController::class, 'historialdeconsumosgeneral'])->name('reporte.Historialdeconsumos');
    Route::get('/estadisticasdeconsumos', [ReportesController::class, 'estadisticasdeconsumogeneral'])->name('reporte.estadisticasdeconsumos');
    Route::get('/reportesdepagos', [ReportesController::class, 'reportesdepagogeneral'])->name('reporte.reportesdepagos');
+   Route::post('/reportesdepagosrango', [ReportesController::class, 'reportesdepagogeneralrango'])->name('reporte.reportespagorango');
    Route::get('/estadodecuenta/{id}', [ReportesController::class, 'estadodecuentasparticularaa'])->name('reporte.estadodecuentaaa');
    Route::get('/Historialdeconsumo/{id}', [ReportesController::class, 'historialdeconsumosparticularaa'])->name('reporte.Historialdeconsumoaa');
    Route::get('/estadisticasdeconsumo/{id}', [ReportesController::class, 'estadisticasdeconsumoparticularaa'])->name('reporte.estadisticasdeconsumoaa');
