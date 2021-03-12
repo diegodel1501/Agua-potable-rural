@@ -8,6 +8,8 @@ use App\Models\Factura;
 use App\Models\representante;
 use App\Models\Cupondepago;
 use App\Models\Medicion;
+use App\Models\pago;
+use App\Models\Saldodiferenciado;
 use App\Models\valorm3;
 use DB;
 use Symfony\Component\VarDumper\VarDumper;
@@ -37,9 +39,15 @@ class ReportesController extends Controller{
         $email= Auth()->user()->email;
         $idvivienda = Representante::where('email',$email)->firstOrFail()->idvivienda;
         
+        $saldoDiferenciado=Saldodiferenciado::where('idvivienda',$idvivienda)->where('estado','activo')->get();
         $facturas=Factura::where('estado','activo')->where('idvivienda',$idvivienda)->get();
+        $idfacturas[]=$facturas->count();
+        for ($i=0; $i <$facturas->count() ; $i++) { 
+        $idfacturas[$i]=$facturas[$i]->idfactura;
+        }
         $vivienda=Vivienda::where('idvivienda',$idvivienda)->first();
-        return view("Reportes.reportesparticulares.estadodecuentasparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda]);
+        $pagos=pago::whereIn('idfactura',$idfacturas)->get();
+        return view("Reportes.reportesparticulares.estadodecuentasparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda,"saldodiferenciado"=>$saldoDiferenciado,"pagos"=>$pagos]);
     }
        public function historialdeconsumosparticular(){
         $email= Auth()->user()->email;
@@ -72,10 +80,16 @@ class ReportesController extends Controller{
     }
     public function estadodecuentasparticularaa($idvivienda){
     
+      $saldoDiferenciado=Saldodiferenciado::where('idvivienda',$idvivienda)->where('estado','activo')->get();
       $facturas=Factura::where('estado','activo')->where('idvivienda',$idvivienda)->get();
+      $idfacturas[]=$facturas->count();
+      for ($i=0; $i <$facturas->count() ; $i++) { 
+      $idfacturas[$i]=$facturas[$i]->idfactura;
+      }
       $vivienda=Vivienda::where('idvivienda',$idvivienda)->first();
+      $pagos=pago::whereIn('idfactura',$idfacturas)->get();
+      return view("Reportes.reportesparticulares.estadodecuentasparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda,"saldodiferenciado"=>$saldoDiferenciado,"pagos"=>$pagos]);
       
-      return view("Reportes.reportesparticulares.estadodecuentasparticular", ["facturas"=>$facturas,"vivienda"=>$vivienda]);
   }
      public function historialdeconsumosparticularaa($idvivienda){
       $valorM3=valorm3::where('estado','activo')->first();

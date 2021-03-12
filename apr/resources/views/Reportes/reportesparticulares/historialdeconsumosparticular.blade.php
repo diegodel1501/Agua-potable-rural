@@ -23,8 +23,8 @@
                         @foreach ($facturas as $index=>$factura)
                         <td>{{$index+1}}</td>
                         <td>{{$vivienda->direccion}}</td>
-                        <td>{{$factura->totalCobrado / $valorM3->precio}}</td>
-                        <td class="{{$factura->fecha? 'text-success':'text-alert'}}">{{$factura->fecha}}</td>
+                        <td>{{Str::limit(($factura->totalCobrado / $valorM3->precio),6,'')}}</td>
+                        <td class="{{$factura->fecha? 'text-success':'text-alert'}} text-bold">{{$factura->fecha}}</td>
 
 
                         @endforeach

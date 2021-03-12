@@ -114,8 +114,14 @@
                 let year2 = parseInt(stringdate.substring(0,4));
                 for (let i = 0; i < data.length; i++) {
                    
-                    if (month==(i+1) && year2==year) {
-                      data[i]=medicion;
+                    if (month==(i+1) && year2==year) 
+                    {
+                        if (data[i-1]) {
+                            data[i]=medicion-data[i-1];
+                        }else{
+                            data[i]=medicion;
+                        }
+                     
                     }
                     
                 }
@@ -132,10 +138,10 @@
                     showConfirmButton: false,
                     timer: 1500
                 });
-                cargar(year=todayYear);
+               
                 setTimeout(() => {
                     $('#year').prop('selectedIndex',0);
-                    cargar(year=todayYear);
+                  
                 }, 2000);
             }
             var myChart2 = document.getElementById('myChart2').getContext('2d');
@@ -148,7 +154,7 @@
                         "Septiembre", "Octubre", "Noviembre", "Diciembre"
                     ],
                     datasets: [{
-                        label: 'Population',
+                        label: 'consumo',
                         data: data,
                         //backgroundColor:'green',
                         backgroundColor: [

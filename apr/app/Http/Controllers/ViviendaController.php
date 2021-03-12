@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Vivienda;
 use App\Http\Requests\viviendaFormRequest;
+use App\Models\representante;
 use DB;
 //use Symfony\Component\VarDumper\VarDumper;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -110,14 +111,25 @@ class ViviendaController extends Controller
 
     }// para actualizar
     public function destroy($id){
+      //desactivar a su representante
                     $vivienda=vivienda::findOrFail($id);
                     $vivienda->estado='inactivo';
+                    $representante=representante::where('idvivienda',$vivienda->idvivienda);
+                    $representante->estado="inactivo";
+                    $result=$representante->update();
+                    if($result){
+                      Alert::success('quitamos al socio asignado, procedemos a quitar la vivienda');
+            
+                    }else{
+                      Alert::error('Oops','Problemas al quita el socio.');
+                    }
+  
                    $result= $vivienda->update();
                    if($result){
                     Alert::success('Los datos han sido eliminados');
           
                   }else{
-                    Alert::error('Oops','Problemas al eliminar el subsidio');
+                    Alert::error('Oops','Problemas al eliminar la vivienda');
                   }
             
 

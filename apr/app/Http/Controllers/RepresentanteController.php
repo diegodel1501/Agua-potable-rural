@@ -107,7 +107,7 @@ class RepresentanteController extends Controller
       ->select('r.*', 'v.direccion')
       ->where('r.idrepresentante', '=', $id)
       ->where('r.estado', '=', 'activo')
-      ->firstOrFail();
+      ->first();
     $viviendas =  DB::table('vivienda')->where('estado', '=', 'activo')->get();
     return view("Administracion.representante.edit", ["viviendas" => $viviendas, "representante" => $representante]);
   } //para editar 
